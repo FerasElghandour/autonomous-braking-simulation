@@ -20,7 +20,11 @@ flowchart LR
 
 **71 unit tests pass.** Independent rechecking of the saved run confirms no collision, a minimum ground-truth obstacle distance of **15.3837 m**, and final speed **0.0265 m/s**, over a **17.056 s** simulation. The physics run is historical; this release freshly checks its telemetry and controller tests.
 
-![Recorded experiment view](results/final_screenshot.png)
+![Recorded braking telemetry](https://raw.githubusercontent.com/FerasElghandour/FerasElghandour.github.io/main/assets/braking-telemetry.png)
+
+Replotted from [results/run.csv](results/run.csv), using ground-truth speed and obstacle distance. The dashed line marks entry into the braking state.
+
+![Actual Webots frame from the recorded simulation](results/final_screenshot.png)
 
 ## Run locally
 
