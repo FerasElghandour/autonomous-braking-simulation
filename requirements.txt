@@ -1,0 +1,5 @@
+# Intentionally minimal. This project only uses the Python standard library
+# (json, csv, math, unittest, argparse, etc.) plus the `controller` and `vehicle`
+# packages that Webots itself injects onto sys.path for controller processes --
+# those must NOT be pip-installed, they are not published PyPI packages and
+# installing something with those names would shadow the real Webots bindings.

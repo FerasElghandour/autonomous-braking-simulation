@@ -1,0 +1,120 @@
+#VRML_SIM R2025a utf8
+# Milestone 1: straight-road obstacle braking test.
+# Vehicle PROTO, road PROTOs, and sensor pattern adapted from the official
+# Cyberbotics highway_overtake.wbt sample (see docs/reference_sources.md).
+
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/backgrounds/protos/TexturedBackground.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/backgrounds/protos/TexturedBackgroundLight.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/floors/protos/RectangleArena.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/appearances/protos/Parquetry.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/road/protos/StraightRoadSegment.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/road/protos/RoadLine.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/vehicles/protos/lincoln/LincolnMKZ.proto"
+
+WorldInfo {
+  info [
+    "Autonomous braking milestone 1."
+    "A single vehicle accelerates down a straight road, detects a solid obstacle with a front distance sensor, computes time-to-collision, and brakes to a safe stop."
+  ]
+  title "Obstacle Braking"
+  basicTimeStep 32
+  randomSeed 1
+  contactProperties [
+    ContactProperties {
+      material2 "LincolnMKZWheels"
+      coulombFriction [
+        8
+      ]
+      softCFM 1e-05
+    }
+  ]
+}
+DEF VIEWPOINT Viewpoint {
+  orientation -0.05 0.15 0.98 1.55
+  position 138 -45 20
+  fieldOfView 0.9
+}
+TexturedBackground {
+}
+TexturedBackgroundLight {
+}
+RectangleArena {
+  translation 90 0 0
+  floorSize 400 60
+  floorAppearance Parquetry {
+    type "light strip"
+  }
+}
+StraightRoadSegment {
+  translation 0 0 0.01
+  rotation 0 0 1 0
+  name "road"
+  id "0"
+  width 10
+  numberOfLanes 2
+  numberOfForwardLanes 2
+  speedLimit 15
+  lines [
+    RoadLine {
+      type "continuous"
+      width 0.25
+    }
+  ]
+  rightBorder FALSE
+  leftBorder FALSE
+  length 200
+}
+DEF CAR LincolnMKZ {
+  translation 5 0 0.4
+  rotation 0 0 1 0
+  name "vehicle"
+  controller "autonomous_car"
+  sensorsSlotFront [
+    DEF FRONT_SENSOR DistanceSensor {
+      translation -0.14 0 0.3
+      name "distance sensor front"
+      lookupTable [
+        0 0 0
+        40 40 0
+      ]
+      numberOfRays 2
+      aperture 0.1
+    }
+  ]
+  sensorsSlotCenter [
+    Emitter {
+      name "telemetry emitter"
+    }
+  ]
+}
+DEF OBSTACLE Solid {
+  translation 150 0 1
+  name "obstacle"
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColor 0.85 0.1 0.05
+        roughness 0.6
+        metalness 0
+      }
+      geometry Box {
+        size 2 4 2
+      }
+    }
+  ]
+  boundingObject Box {
+    size 2 4 2
+  }
+  locked TRUE
+}
+DEF SUPERVISOR Robot {
+  translation -10 -15 0
+  name "experiment_supervisor"
+  controller "experiment_supervisor"
+  supervisor TRUE
+  children [
+    Receiver {
+      name "telemetry receiver"
+    }
+  ]
+}
