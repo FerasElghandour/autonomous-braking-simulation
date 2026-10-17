@@ -41,7 +41,7 @@ STATE_STOPPED = "STOPPED"
 def load_scenario_config(config_path=None):
     """Load config/scenario.json. Pure I/O, no Webots dependency."""
     if config_path is None:
-        config_path = os.path.join(
+        config_path = os.environ.get('BRAKING_SCENARIO_CONFIG') or os.path.join(
             os.path.dirname(os.path.abspath(__file__)), "..", "..", "config", "scenario.json"
         )
     with open(config_path, "r") as f:
@@ -113,7 +113,7 @@ def decide_state(sensor_valid, ttc, current_speed, commanded_speed, target_speed
     up towards something that isn't moving out of the way); a scenario with a
     disappearing/passing obstacle would need to release the latch on top of this.
     """
-    if not sensor_valid and current_speed > EPSILON:
+    if not sensor_valid:
         return STATE_SENSOR_FAULT
 
     obstacle_response_active = previous_state in (
@@ -185,7 +185,7 @@ def main():
         ttc = compute_ttc(distance, closing_speed) if sensor_valid else None
 
         state = decide_state(
-            sensor_valid, ttc, current_speed, commanded_speed, target_speed,
+            sensor_valid and speed_valid, ttc, current_speed, commanded_speed, target_speed,
             ttc_normal_threshold, ttc_emergency_threshold, previous_state=previous_state,
         )
         previous_state = state
@@ -199,7 +199,7 @@ def main():
 
         commanded_speed = max(commanded_speed, 0.0)  # never reverse
 
-        if commanded_speed < EPSILON and current_speed < EPSILON:
+        if commanded_speed < EPSILON and current_speed < EPSILON and state != STATE_SENSOR_FAULT:
             state = STATE_STOPPED
 
         brake_intensity = brake_intensity_for_state(state)

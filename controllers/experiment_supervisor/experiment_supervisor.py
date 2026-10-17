@@ -32,7 +32,7 @@ CONTROLLER_SILENCE_STEP_LIMIT = 100  # steps of silence after first packet == co
 
 def load_scenario_config(config_path=None):
     if config_path is None:
-        config_path = os.path.join(
+        config_path = os.environ.get('BRAKING_SCENARIO_CONFIG') or os.path.join(
             os.path.dirname(os.path.abspath(__file__)), "..", "..", "config", "scenario.json"
         )
     with open(config_path, "r") as f:
@@ -164,7 +164,7 @@ def main():
             if sensor_distance is not None:
                 min_sensor_distance = min(min_sensor_distance, sensor_distance)
                 sensor_distance_history.append(sensor_distance)
-            if sensor_valid is False:
+            if sensor_valid is False or latest_packet.get("speed_valid") is False:
                 sensor_readings_valid_overall = False
             if controller_state in ("BRAKING_NORMAL", "BRAKING_EMERGENCY", "SENSOR_FAULT"):
                 braking_triggered = True

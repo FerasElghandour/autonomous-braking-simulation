@@ -1,0 +1,101 @@
+{
+  "speeds_mps": [
+    5.0,
+    10.0,
+    15.0
+  ],
+  "initial_clearances_m": [
+    20.0,
+    40.0,
+    80.0
+  ],
+  "obstacle_speeds_mps": [
+    -2.0,
+    0.0,
+    2.0
+  ],
+  "conditions": {
+    "nominal": {},
+    "noise": {
+      "noise_sd": 0.5
+    },
+    "positive_bias": {
+      "bias": 5.0
+    },
+    "dropout": {
+      "dropout": 0.05
+    },
+    "latency": {
+      "delay_steps": 10
+    },
+    "low_friction": {
+      "friction": 0.35
+    },
+    "combined": {
+      "noise_sd": 0.5,
+      "bias": 2.0,
+      "delay_steps": 10,
+      "friction": 0.5
+    }
+  },
+  "seeds_by_condition": {
+    "nominal": [
+      100
+    ],
+    "noise": [
+      100,
+      101,
+      102,
+      103,
+      104,
+      105,
+      106,
+      107,
+      108,
+      109
+    ],
+    "positive_bias": [
+      100
+    ],
+    "dropout": [
+      100,
+      101,
+      102,
+      103,
+      104,
+      105,
+      106,
+      107,
+      108,
+      109
+    ],
+    "latency": [
+      100
+    ],
+    "low_friction": [
+      100
+    ],
+    "combined": [
+      100,
+      101,
+      102,
+      103,
+      104,
+      105,
+      106,
+      107,
+      108,
+      109
+    ]
+  },
+  "policies": [
+    "ttc",
+    "fixed_distance"
+  ],
+  "dt_s": 0.032,
+  "horizon_s": 20.0,
+  "safe_margin_m": 3.0,
+  "initial_ego_speed": "already at target cruise speed",
+  "fixed_distance_baseline": "full brake once observed clearance <=20m or a sensor fault; sticky",
+  "limitations": "Declared 1D ideal plant. Controller TTC deliberately retains static-obstacle assumption (distance/ego speed). Moving obstacles are stress inputs, not a new supported autonomy claim. Collision measured until first stop or horizon, not indefinitely after stopping. Synthetic cases are correlated model scenarios, not independent real-world trials. No Webots or physical-vehicle outcome follows."
+}

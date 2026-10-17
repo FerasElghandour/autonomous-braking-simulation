@@ -1,0 +1,77 @@
+{
+  "cases": [
+    {
+      "name": "speed-5-clearance-20",
+      "speed_mps": 5.0,
+      "initial_reference_clearance_m": 20.0,
+      "status": "startup_failed",
+      "project": "speed-5-clearance-20",
+      "exit_code": 1,
+      "wall_seconds": 0.6199186250014463
+    },
+    {
+      "name": "speed-5-clearance-40",
+      "speed_mps": 5.0,
+      "initial_reference_clearance_m": 40.0,
+      "status": "prepared",
+      "project": "speed-5-clearance-40"
+    },
+    {
+      "name": "speed-5-clearance-80",
+      "speed_mps": 5.0,
+      "initial_reference_clearance_m": 80.0,
+      "status": "prepared",
+      "project": "speed-5-clearance-80"
+    },
+    {
+      "name": "speed-10-clearance-20",
+      "speed_mps": 10.0,
+      "initial_reference_clearance_m": 20.0,
+      "status": "prepared",
+      "project": "speed-10-clearance-20"
+    },
+    {
+      "name": "speed-10-clearance-40",
+      "speed_mps": 10.0,
+      "initial_reference_clearance_m": 40.0,
+      "status": "prepared",
+      "project": "speed-10-clearance-40"
+    },
+    {
+      "name": "speed-10-clearance-80",
+      "speed_mps": 10.0,
+      "initial_reference_clearance_m": 80.0,
+      "status": "prepared",
+      "project": "speed-10-clearance-80"
+    },
+    {
+      "name": "speed-15-clearance-20",
+      "speed_mps": 15.0,
+      "initial_reference_clearance_m": 20.0,
+      "status": "prepared",
+      "project": "speed-15-clearance-20"
+    },
+    {
+      "name": "speed-15-clearance-40",
+      "speed_mps": 15.0,
+      "initial_reference_clearance_m": 40.0,
+      "status": "prepared",
+      "project": "speed-15-clearance-40"
+    },
+    {
+      "name": "speed-15-clearance-80",
+      "speed_mps": 15.0,
+      "initial_reference_clearance_m": 80.0,
+      "status": "prepared",
+      "project": "speed-15-clearance-80"
+    }
+  ],
+  "source_sha256": {
+    "scripts/webots_matrix.py": "34d2d87e3437075ab3f9b5615d6cbaf2c50b67c12d671aa94ab6a7cd715c84f4",
+    "worlds/obstacle_braking.wbt": "51f002e4e540786ab46b3745cd61f58a99f79167b23c2833a29d88add427fa94",
+    "controllers/autonomous_car/autonomous_car.py": "122d4f16baf1fdc63fd57362d294606e9139690c3107e50c2f6162aaabe1fc96",
+    "controllers/experiment_supervisor/experiment_supervisor.py": "0d8382092f0a583687e0c5d4bf3021885a4349040ad574934d37bef7add7afac"
+  },
+  "scope": "Nine fresh Webots cases using unchanged static-obstacle geometry and TTC rules, varied cruise targets and initial reference clearances. Not moving-obstacle, weather, learning-based control or vehicle certification.",
+  "execution_note": "Stopped after first runtime failure; remaining prepared cases were not executed."
+}

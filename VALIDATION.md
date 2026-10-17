@@ -1,3 +1,9 @@
+# Current validation extension
+
+76 controller/validation unit tests passed on the M2 Max, Python 3.14.3. The new fail-safe loop and matrix geometry checks passed. The 1,836 software-in-the-loop stress runs are reported separately and include failures. Fresh Webots physics remains blocked at runtime startup. See [results and limits](results/stress-v1/RESULTS.md).
+
+## Preserved earlier validation record
+
 # Validation record
 
 Release review: 17 October 2026.

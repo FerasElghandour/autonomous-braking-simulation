@@ -1,0 +1,14 @@
+ERROR: Could not listen to extern controllers and robot windows on port 13037. Port 13037 is already in use. Giving up.
+ERROR: Could not listen to extern controllers and robot windows on port 13036. Port 13036 is already in use. Giving up.
+ERROR: Could not listen to extern controllers and robot windows on port 13035. Port 13035 is already in use. Giving up.
+ERROR: Could not listen to extern controllers and robot windows on port 13034. Port 13034 is already in use. Giving up.
+ERROR: Could not listen to extern controllers and robot windows on port 13033. Port 13033 is already in use. Giving up.
+ERROR: Could not listen to extern controllers and robot windows on port 13032. Port 13032 is already in use. Giving up.
+ERROR: Could not listen to extern controllers and robot windows on port 13031. Port 13031 is already in use. Giving up.
+ERROR: Could not listen to extern controllers and robot windows on port 13030. Port 13030 is already in use. Giving up.
+ERROR: Could not listen to extern controllers and robot windows on port 13029. Port 13029 is already in use. Giving up.
+ERROR: Could not listen to extern controllers and robot windows on port 13028. Port 13028 is already in use. Giving up.
+ERROR: Could not listen to extern controllers and robot windows on port 13027. Port 13027 is already in use. Giving up.
+webots: failed to open TCP server in the port range [13027-13037]
+
+Try 'webots --help' for more information.

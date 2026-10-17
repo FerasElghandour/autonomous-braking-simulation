@@ -131,12 +131,12 @@ class TestDecideState(unittest.TestCase):
         )
         self.assertEqual(state, ac.STATE_SENSOR_FAULT)
 
-    def test_sensor_invalid_but_stationary_is_not_a_fault(self):
+    def test_sensor_invalid_while_stationary_prevents_acceleration(self):
         state = ac.decide_state(
             sensor_valid=False, ttc=None, current_speed=0.0, commanded_speed=0.0,
             target_speed=10.0, ttc_normal_threshold=3.0, ttc_emergency_threshold=1.2,
         )
-        self.assertNotEqual(state, ac.STATE_SENSOR_FAULT)
+        self.assertEqual(state, ac.STATE_SENSOR_FAULT)
 
     def test_emergency_braking_below_threshold(self):
         state = ac.decide_state(

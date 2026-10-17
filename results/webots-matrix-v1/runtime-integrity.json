@@ -1,0 +1,25 @@
+{
+  "official_release": "R2025a",
+  "installed_application_modified": false,
+  "components": [
+    {
+      "component": "main executable",
+      "installed_sha256": "0ba7fdf2603a0b5cc2cac628e590c6f8afddbc85a8f1b1f5329056183c57a642",
+      "official_sha256": "0ba7fdf2603a0b5cc2cac628e590c6f8afddbc85a8f1b1f5329056183c57a642",
+      "identical": true
+    },
+    {
+      "component": "Qt network runtime",
+      "installed_sha256": "e5da664374ca06cedeeabd6b5e1cd8518b75a9263faa070fb424de74a279e90c",
+      "official_sha256": "e5da664374ca06cedeeabd6b5e1cd8518b75a9263faa070fb424de74a279e90c",
+      "identical": true
+    },
+    {
+      "component": "Qt core runtime",
+      "installed_sha256": "16a3bf0c9f835bb0d337feaec082431f44c36b593487f3a713d55fbb37545a41",
+      "official_sha256": "16a3bf0c9f835bb0d337feaec082431f44c36b593487f3a713d55fbb37545a41",
+      "identical": true
+    }
+  ],
+  "official_dmg_sha256": "484f6cc84ca794dd33e410b0bfc030132cc5b163a882c350c1d293d06d87584f"
+}

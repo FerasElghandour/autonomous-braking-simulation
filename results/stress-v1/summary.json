@@ -1,0 +1,110 @@
+{
+  "validation_level": "software-in-the-loop, 1D kinematic plant",
+  "cases": 1836,
+  "groups": {
+    "ttc/nominal": {
+      "runs": 27,
+      "collisions": 3,
+      "safe_stops": 18,
+      "timeouts": 1,
+      "minimum_clearance_m": -0.13721599999999157
+    },
+    "ttc/noise": {
+      "runs": 270,
+      "collisions": 29,
+      "safe_stops": 180,
+      "timeouts": 10,
+      "minimum_clearance_m": -0.18242559999999486
+    },
+    "ttc/positive_bias": {
+      "runs": 27,
+      "collisions": 9,
+      "safe_stops": 14,
+      "timeouts": 1,
+      "minimum_clearance_m": -0.2133503999999924
+    },
+    "ttc/dropout": {
+      "runs": 270,
+      "collisions": 23,
+      "safe_stops": 207,
+      "timeouts": 0,
+      "minimum_clearance_m": -0.2277887999999919
+    },
+    "ttc/latency": {
+      "runs": 27,
+      "collisions": 6,
+      "safe_stops": 17,
+      "timeouts": 1,
+      "minimum_clearance_m": -0.2133503999999924
+    },
+    "ttc/low_friction": {
+      "runs": 27,
+      "collisions": 19,
+      "safe_stops": 2,
+      "timeouts": 1,
+      "minimum_clearance_m": -0.40616959999999125
+    },
+    "ttc/combined": {
+      "runs": 270,
+      "collisions": 173,
+      "safe_stops": 30,
+      "timeouts": 10,
+      "minimum_clearance_m": -0.40832000000001756
+    },
+    "fixed_distance/nominal": {
+      "runs": 27,
+      "collisions": 3,
+      "safe_stops": 20,
+      "timeouts": 1,
+      "minimum_clearance_m": -0.2027519999999967
+    },
+    "fixed_distance/noise": {
+      "runs": 270,
+      "collisions": 30,
+      "safe_stops": 200,
+      "timeouts": 10,
+      "minimum_clearance_m": -0.20812799999875153
+    },
+    "fixed_distance/positive_bias": {
+      "runs": 27,
+      "collisions": 6,
+      "safe_stops": 15,
+      "timeouts": 1,
+      "minimum_clearance_m": -0.3008000000000095
+    },
+    "fixed_distance/dropout": {
+      "runs": 270,
+      "collisions": 13,
+      "safe_stops": 243,
+      "timeouts": 0,
+      "minimum_clearance_m": -0.2027519999999967
+    },
+    "fixed_distance/latency": {
+      "runs": 27,
+      "collisions": 5,
+      "safe_stops": 18,
+      "timeouts": 1,
+      "minimum_clearance_m": -0.2027519999999967
+    },
+    "fixed_distance/low_friction": {
+      "runs": 27,
+      "collisions": 15,
+      "safe_stops": 11,
+      "timeouts": 1,
+      "minimum_clearance_m": -0.423679999998825
+    },
+    "fixed_distance/combined": {
+      "runs": 270,
+      "collisions": 150,
+      "safe_stops": 110,
+      "timeouts": 10,
+      "minimum_clearance_m": -0.4592640000000259
+    }
+  },
+  "source_sha256": {
+    "scripts/stress_validation.py": "5439b736e53738cbd4e355a3ed89655354ce24c7245b4556047f156f53a18786",
+    "controllers/autonomous_car/autonomous_car.py": "122d4f16baf1fdc63fd57362d294606e9139690c3107e50c2f6162aaabe1fc96"
+  },
+  "python": "3.14.3",
+  "limits": "Declared 1D ideal plant. Controller TTC deliberately retains static-obstacle assumption (distance/ego speed). Moving obstacles are stress inputs, not a new supported autonomy claim. Collision measured until first stop or horizon, not indefinitely after stopping. Synthetic cases are correlated model scenarios, not independent real-world trials. No Webots or physical-vehicle outcome follows."
+}
