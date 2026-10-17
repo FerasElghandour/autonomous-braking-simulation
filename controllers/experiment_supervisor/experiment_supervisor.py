@@ -7,8 +7,10 @@ directly from the physics engine via the Supervisor API, not trusted from the ca
 
 The car controller (controllers/autonomous_car/autonomous_car.py) broadcasts its own
 per-step decision data (sensor reading, commanded speed, brake command, state) over an
-Emitter/Receiver link purely so it can be recorded in results/run.csv alongside the
-independent ground truth -- it is never used to decide pass/fail.
+Emitter/Receiver link for results/run.csv and checks of controller response, input
+validity and commanded braking. Physical position, velocity and obstacle-contact
+checks use the independent Supervisor measurements. A bounded initial hold records
+unavailable startup samples separately while keeping zero cruise and full brake.
 """
 
 import csv
@@ -28,6 +30,16 @@ OBSTACLE_HALF_EXTENTS = (1.0, 2.0, 1.0)
 CONTACT_EPSILON = 0.05  # metres, numerical tolerance for "is this contact point on the obstacle"
 STOPPED_SPEED_THRESHOLD = 0.05  # m/s
 CONTROLLER_SILENCE_STEP_LIMIT = 100  # steps of silence after first packet == controller failure
+
+
+def is_bounded_startup_hold(packet, sim_time, car_x, start_x):
+    """Only exempt unavailable startup samples while independently stationary and braked."""
+    return (packet.get("state") == "INITIALIZING"
+            and packet.get("initialization_complete") is False
+            and 0.0 <= sim_time <= 1.032
+            and abs(car_x - start_x) < 0.05
+            and packet.get("commanded_speed") == 0.0
+            and packet.get("brake_command") == 1.0)
 
 
 def load_scenario_config(config_path=None):
@@ -89,6 +101,7 @@ def main():
         "step", "sim_time_s", "car_x_m", "car_y_m", "true_speed_mps", "controller_speed_mps",
         "sensor_distance_m", "true_distance_m", "closing_speed_mps", "ttc_s",
         "accel_command", "brake_command", "controller_state", "sensor_valid", "collision",
+        "speed_valid", "initialization_complete",
     ])
 
     max_duration_s = float(config["max_duration_s"])
@@ -105,6 +118,7 @@ def main():
     braking_triggered = False
     emergency_braking_count = 0
     sensor_readings_valid_overall = True
+    initialization_invalid_packets = 0
     sensor_distance_history = []
     car_controller_responded = False
     steps_since_last_packet = 0
@@ -165,7 +179,10 @@ def main():
                 min_sensor_distance = min(min_sensor_distance, sensor_distance)
                 sensor_distance_history.append(sensor_distance)
             if sensor_valid is False or latest_packet.get("speed_valid") is False:
-                sensor_readings_valid_overall = False
+                if is_bounded_startup_hold(latest_packet, sim_time, car_pos[0], car_start_x):
+                    initialization_invalid_packets += 1
+                else:
+                    sensor_readings_valid_overall = False
             if controller_state in ("BRAKING_NORMAL", "BRAKING_EMERGENCY", "SENSOR_FAULT"):
                 braking_triggered = True
             if controller_state == "BRAKING_EMERGENCY":
@@ -193,6 +210,8 @@ def main():
             brake_command if brake_command is not None else "",
             controller_state or "", sensor_valid if sensor_valid is not None else "",
             collision_occurred,
+            latest_packet.get("speed_valid") if latest_packet else "",
+            latest_packet.get("initialization_complete") if latest_packet else "",
         ])
 
         if true_speed < STOPPED_SPEED_THRESHOLD and car_moved and sim_time > 2.0:
@@ -260,6 +279,8 @@ def main():
         "car_stopped": car_stopped,
         "collision_occurred": collision_occurred,
         "sensor_readings_valid": sensor_readings_valid_overall,
+        "initialization_invalid_packets": initialization_invalid_packets,
+        "initialization_policy": "Unavailable readings are counted separately only within a 1 s startup hold, with zero cruise, full brake and <0.05 m ground-truth X displacement. Later invalid readings fail validation.",
         "braking_triggered": braking_triggered,
         "emergency_braking_count": emergency_braking_count,
         "minimum_sensor_distance_m": None if math.isinf(min_sensor_distance) else min_sensor_distance,

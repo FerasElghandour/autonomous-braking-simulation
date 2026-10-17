@@ -15,19 +15,24 @@ World -> sensor -> risk calculation -> controller -> vehicle physics -> supervis
    the pure function `compute_ttc(distance, closing_speed)`.
 4. **Controller decision**: `decide_state(...)` maps TTC (plus sensor validity) to one of
    `ACCELERATING`, `CRUISING`, `BRAKING_NORMAL`, `BRAKING_EMERGENCY`, `SENSOR_FAULT`, `STOPPED`.
+   A preceding `INITIALIZING` hold commands zero cruise and full brake until three consecutive
+   valid speed/range samples arrive within one second. Missing startup speed estimates are
+   recorded, not treated as zero-speed evidence. Initialization timeout and faults after
+   initialization latch `SENSOR_FAULT` and full braking until controller restart.
    Each state ramps a commanded speed target (`ramp_towards`) at the configured acceleration or
    braking rate and sets a proportional brake intensity.
 5. **Vehicle physics**: the commanded speed and brake intensity are applied via the official
    `vehicle.Driver` API (`setCruisingSpeed`, `setBrakeIntensity`, `setSteeringAngle(0.0)` held
    centred throughout). Webots' ODE-based physics engine handles the actual wheel dynamics.
 6. **Supervisor truth**: `controllers/experiment_supervisor/experiment_supervisor.py` is a
-   separate Webots Supervisor process. It never reads the car's sensor or trusts the car's
-   self-reported state for the pass/fail verdict -- it independently queries the car's and
-   obstacle's true position/velocity from the physics engine, and detects real physical contact
+   separate Webots Supervisor process. It independently queries the car's and
+   obstacle's true position/velocity from the physics engine, and detects physical contact
    via `Node.getContactPoints()` filtered to the obstacle's bounding box. The car's own per-step
-   decision data (sensor reading, commanded speed, brake command, state) is only used to fill in
-   the `run.csv` telemetry columns, received over an Emitter (car) / Receiver (supervisor) link --
-   it plays no part in the safety verdict.
+   decision data (sensor reading, commanded speed, brake command, state), received over an
+   Emitter/Receiver link, additionally checks telemetry validity and whether braking was
+   commanded. Those checks do use reported controller data; the position, velocity and contact
+   measurements do not. Unavailable startup samples are exempted only during a bounded,
+   fully braked hold with less than 0.05 m independently measured X displacement.
 7. **Evaluation**: the supervisor writes `results/run.csv` (per-step telemetry, both car-reported
    and ground-truth columns) and `results/summary.json` (aggregate pass/fail verdict with
    itemized failure reasons). `scripts/validate_results.py` then independently re-derives the
@@ -45,17 +50,17 @@ Three independent OS processes run each simulation:
   `supervisor` field `TRUE` -- it has full read access to the scene graph and physics state, but
   no access to the car's Python-side variables except what the car chooses to broadcast).
 
-This separation is the core safety property of the design: a bug that makes the car controller
-*believe* it braked in time cannot make the supervisor *agree* unless the physics actually agrees.
+This separation keeps the physical stop and contact measurements independent of the car's
+reported decisions. It is a simulation validation boundary, not a vehicle safety certification.
 
 ## Known simplifications (documented, not hidden)
 
 - The supervisor's `true_distance_m` telemetry column treats the car as a point at its reported
   translation (ignoring the ~1-2 m front overhang of the physical vehicle body). This makes the
   telemetry distance *slightly larger* than the true clearance to the car's front bumper. The
-  actual pass/fail collision check does **not** rely on this simplification -- it uses real
-  contact-point geometry (`Node.getContactPoints`) against the obstacle's exact bounding box, so
-  the simplification only affects a diagnostic column, never the safety verdict.
+  contact check uses contact-point geometry (`Node.getContactPoints`) against the obstacle's
+  bounding box. The separate 3 m stopping-distance acceptance threshold does use this reference
+  distance, so it must not be interpreted as 3 m of bumper clearance.
 - `worlds/obstacle_braking.wbt` is a static, hand-authored file. `config/scenario.json`'s
   `car_start_position_m` and `obstacle_position_m` are not used to procedurally generate the
   world -- they must be kept in sync with the world file's baked-in translations by hand. This is

@@ -4,9 +4,12 @@ The root [MIT license](LICENSE) applies to Feras Elghandour's original contribut
 
 - `scripts/stress_validation.py`
 - `scripts/webots_matrix.py`
+- `scripts/audit_webots_physics.py`
+- `scripts/plot_webots_physics.py`
 - `tests/test_fail_safe_loop.py`
 - `tests/test_stress_validation.py`
 - `tests/test_webots_matrix.py`
+- `tests/test_webots_physics_audit.py`
 
 Original reproduction runner, protocol and benchmark documentation authored for the current public tooling; legacy source ownership was not inferred from repository ownership.
 

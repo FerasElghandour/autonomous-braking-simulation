@@ -10,7 +10,7 @@ A Webots vehicle controller validates distance and speed readings, enters a pers
 
 ```mermaid
 flowchart LR
- A[Distance and speed] --> B[Validate and compute TTC]
+ A[Distance and speed] --> B[Bounded startup hold, then validate and compute TTC]
  B --> C[Persistent braking state]
  C --> D[Vehicle physics]
  D --> E[Independent supervisor and telemetry]
@@ -18,13 +18,13 @@ flowchart LR
 
 ## Evidence and results
 
-**76 unit tests pass.** Independent rechecking of the saved run confirms no collision, a minimum ground-truth obstacle distance of **15.3837 m**, and final speed **0.0265 m/s**, over a **17.056 s** simulation. The physics run is historical; this release freshly checks its telemetry and controller tests.
+**Nine fresh Webots physics cases passed, with no obstacle contact.** Minimum obstacle-front-face to vehicle-reference distance: **11.05–15.83 m**. The matrix varies requested cruise targets (5/10/15 m/s) and initial reference clearances (20/40/80 m); every run starts from rest. Actual peak speeds are reported below: the 15 m/s target was not reached.
 
-![Recorded braking telemetry](https://raw.githubusercontent.com/FerasElghandour/FerasElghandour.github.io/main/assets/braking-telemetry.png)
+![Nine measured stopping distances and actual peak speeds](results/webots-physics-v1/stopping-distances.png)
 
-Replotted from [results/run.csv](results/run.csv), using ground-truth speed and obstacle distance. The dashed line marks entry into the braking state.
+**86 tests pass.** The new physics exposed an unavailable startup speed estimate that permanently held the old controller. A bounded, fully braked initialization now requires three valid samples; later speed/range faults latch zero cruise and full brake. All nine pre-fix failures, nine corrected runs and nine same-seed repeat checks are retained. [Protocol, numerical table, raw telemetry and exact source](results/webots-physics-v1/RESULTS.md).
 
-![Actual Webots frame from the recorded simulation](results/final_screenshot.png)
+The earlier saved run remains in [results/run.csv](results/run.csv): no contact, minimum reference distance 15.3837 m, final speed 0.0265 m/s. Its [Webots frame](results/final_screenshot.png) is historical and uses the original world.
 
 ## Run locally
 
@@ -33,21 +33,24 @@ Python 3.11 or later; use an isolated environment.
 ```sh
 python -m unittest discover -s tests -v
 python scripts/validate_results.py
+python scripts/audit_webots_physics.py
 ```
 
-For a new physics run, open `worlds/obstacle_braking.wbt` in Webots R2025a. The world references official version-pinned assets. The controller bindings come from Webots and should not be installed from PyPI. [Architecture](docs/architecture.md) describes the control loop.
+For a new physics run, open `worlds/obstacle_braking.wbt` in Webots. On macOS 27, stable R2025a falsely reports occupied ports; these runs use the official **R2025b nightly_16_10_2026** containing [upstream fix #7032](https://github.com/cyberbotics/webots/pull/7032). The installed app was preserved. Exact download, hashes and command are in the [protocol](results/webots-physics-v1/protocol.json) and [reproduction guide](results/webots-physics-v1/RESULTS.md).
+
+The world references official version-pinned R2025a assets. Controller bindings come from Webots and should not be installed from PyPI. [Architecture](docs/architecture.md) describes the control loop and evaluation boundary.
 
 ## New validation and fail-safe guard
 
-The current controller prevents acceleration on an invalid speed or distance reading and retains fail-safe braking. **76 tests** include an actual control-loop regression and generated-world/config consistency checks.
+The tests cover startup readiness, initialization timeout, persistent fault braking, generated-world/config consistency and numerical replay checks that reject altered stopping distances, hidden contact and premature acceleration.
 
 A separate **1,836-run kinematic stress comparison** covers speed, clearance, moving obstacles, noise, bias, dropouts, delay and friction. It exposes collisions and inconsistent performance against a fixed-distance baseline. [All results and model limits](results/stress-v1/RESULTS.md).
 
-Nine fresh Webots cases are prepared. The installed runtime currently fails before loading a world; their physics outcomes remain unmeasured. The historical telemetry above is preserved.
+The kinematic stress results use their recorded earlier controller version and are separate from the new Webots physics evidence.
 
 ## Scope and limitations
 
-One straight-road, static-obstacle scenario. No physical vehicle, moving obstacle, weather robustness, or broader safety claim is established. The simulator and official vehicle assets are external dependencies.
+One straight road, static obstacle and deterministic physics seed. Reference distance is not bumper clearance. Short-gap runs brake before reaching their requested cruise target. No physical vehicle, moving-obstacle physics, weather robustness or broader safety claim is established. The fixed simulator build is an official prerelease; the vehicle assets are external dependencies.
 
 [Validation record](VALIDATION.md) · [Inputs and applicable notices](DATA.md)
 

@@ -4,6 +4,7 @@ import hashlib
 import itertools
 import json
 import os
+import platform
 from pathlib import Path
 import shutil
 import subprocess
@@ -37,6 +38,12 @@ def main():
     p=argparse.ArgumentParser(description=__doc__);p.add_argument('--out',type=Path,required=True);p.add_argument('--webots',type=Path);p.add_argument('--timeout',type=int,default=90);a=p.parse_args()
     a.out=a.out.resolve();report=prepare(a.out)
     if a.webots:
+        executable=a.webots.resolve()
+        report['runtime']={'executable_sha256':hashlib.sha256(executable.read_bytes()).hexdigest(),
+                           'declared_webots_version':os.environ.get('WEBOTS_VERSION','unspecified'),
+                           'host':platform.platform(),'runner_python':platform.python_version(),
+                           'arguments':['--batch','--mode=fast','--no-rendering','--minimize','--port=13027'],
+                           'timeout_seconds_per_case':a.timeout}
         for job in report['cases']:
             project=a.out/job['project'];env={**os.environ,'BRAKING_SCENARIO_CONFIG':str(project/'config/scenario.json')}
             command=[str(a.webots),'--batch','--mode=fast','--no-rendering','--minimize','--port=13027',str(project/'worlds/obstacle_braking.wbt')]

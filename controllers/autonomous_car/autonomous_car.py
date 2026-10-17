@@ -36,6 +36,9 @@ STATE_BRAKING_NORMAL = "BRAKING_NORMAL"
 STATE_BRAKING_EMERGENCY = "BRAKING_EMERGENCY"
 STATE_SENSOR_FAULT = "SENSOR_FAULT"
 STATE_STOPPED = "STOPPED"
+STATE_INITIALIZING = "INITIALIZING"
+INITIALIZATION_TIMEOUT_S = 1.0
+INITIALIZATION_VALID_SAMPLES = 3
 
 
 def load_scenario_config(config_path=None):
@@ -113,7 +116,7 @@ def decide_state(sensor_valid, ttc, current_speed, commanded_speed, target_speed
     up towards something that isn't moving out of the way); a scenario with a
     disappearing/passing obstacle would need to release the latch on top of this.
     """
-    if not sensor_valid:
+    if not sensor_valid or previous_state == STATE_SENSOR_FAULT:
         return STATE_SENSOR_FAULT
 
     obstacle_response_active = previous_state in (
@@ -136,7 +139,7 @@ def brake_intensity_for_state(state):
     """Map a controller state to a brake pedal intensity in [0, 1]."""
     if state == STATE_BRAKING_EMERGENCY:
         return 1.0
-    if state == STATE_SENSOR_FAULT:
+    if state in (STATE_SENSOR_FAULT, STATE_INITIALIZING):
         return 1.0
     if state == STATE_BRAKING_NORMAL:
         return 0.4
@@ -169,6 +172,9 @@ def main():
     commanded_speed = 0.0
     step_count = 0
     previous_state = None
+    initialization_complete = False
+    initialization_expired = False
+    initialization_valid_samples = 0
 
     driver.setSteeringAngle(0.0)
 
@@ -184,13 +190,33 @@ def main():
         closing_speed = current_speed  # obstacle is static: relative closing speed = our speed
         ttc = compute_ttc(distance, closing_speed) if sensor_valid else None
 
-        state = decide_state(
-            sensor_valid and speed_valid, ttc, current_speed, commanded_speed, target_speed,
-            ttc_normal_threshold, ttc_emergency_threshold, previous_state=previous_state,
-        )
+        # The Driver speed estimate is unavailable on its first physics samples.
+        # Hold zero cruise and full brake until three consecutive valid samples,
+        # within one second. This exception exists only before driving starts;
+        # timeout and every later fault latch full braking until process restart.
+        if not initialization_complete and not initialization_expired:
+            if step_count * dt > INITIALIZATION_TIMEOUT_S:
+                initialization_expired = True
+            elif sensor_valid and speed_valid:
+                initialization_valid_samples += 1
+                initialization_complete = initialization_valid_samples >= INITIALIZATION_VALID_SAMPLES
+            else:
+                initialization_valid_samples = 0
+
+        if initialization_expired:
+            state = STATE_SENSOR_FAULT
+        elif not initialization_complete:
+            state = STATE_INITIALIZING
+        else:
+            state = decide_state(
+                sensor_valid and speed_valid, ttc, current_speed, commanded_speed, target_speed,
+                ttc_normal_threshold, ttc_emergency_threshold, previous_state=previous_state,
+            )
         previous_state = state
 
-        if state in (STATE_BRAKING_EMERGENCY, STATE_SENSOR_FAULT):
+        if state in (STATE_INITIALIZING, STATE_SENSOR_FAULT):
+            commanded_speed = 0.0
+        elif state == STATE_BRAKING_EMERGENCY:
             commanded_speed = ramp_towards(commanded_speed, 0.0, emergency_brake_rate, dt)
         elif state == STATE_BRAKING_NORMAL:
             commanded_speed = ramp_towards(commanded_speed, 0.0, normal_brake_rate, dt)
@@ -199,7 +225,7 @@ def main():
 
         commanded_speed = max(commanded_speed, 0.0)  # never reverse
 
-        if commanded_speed < EPSILON and current_speed < EPSILON and state != STATE_SENSOR_FAULT:
+        if commanded_speed < EPSILON and current_speed < EPSILON and state not in (STATE_SENSOR_FAULT, STATE_INITIALIZING):
             state = STATE_STOPPED
 
         brake_intensity = brake_intensity_for_state(state)
@@ -214,6 +240,7 @@ def main():
             "sensor_distance": distance if sensor_valid else None,
             "sensor_valid": sensor_valid,
             "speed_valid": speed_valid,
+            "initialization_complete": initialization_complete,
             "controller_speed": current_speed,
             "commanded_speed": commanded_speed,
             "ttc": None if ttc is None or math.isinf(ttc) else ttc,

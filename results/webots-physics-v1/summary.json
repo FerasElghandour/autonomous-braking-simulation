@@ -1,0 +1,31 @@
+{
+  "before": {
+    "runs": 9,
+    "passed": 0,
+    "end_reason": "timeout without driving"
+  },
+  "after": {
+    "runs": 9,
+    "passed": 9,
+    "contacts": 0
+  },
+  "repeat": {
+    "runs": 9,
+    "passed": 9,
+    "same_seed": true,
+    "aggregate_fields_compared": [
+      "minimum_true_distance_m",
+      "maximum_speed_mps",
+      "final_speed_mps",
+      "total_simulation_time_s",
+      "collision_occurred",
+      "pass"
+    ],
+    "differences": []
+  },
+  "audited_rows": 15514,
+  "unit_tests_passed": 86,
+  "minimum_reference_distance_m": 11.05401657233432,
+  "maximum_reference_distance_m": 15.832122755962146,
+  "highest_actual_peak_speed_mps": 12.856391913665773
+}

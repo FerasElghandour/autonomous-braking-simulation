@@ -16,6 +16,7 @@ jobs:
       - run: |
           python -m unittest discover -s tests -q
           python scripts/validate_results.py
+          python scripts/audit_webots_physics.py
         env:
           OMP_NUM_THREADS: '2'
           OPENBLAS_NUM_THREADS: '2'

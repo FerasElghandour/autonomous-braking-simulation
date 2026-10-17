@@ -1,0 +1,303 @@
+{
+  "cases": [
+    {
+      "phase": "before",
+      "name": "speed-5-clearance-20",
+      "rows": 1250,
+      "pass": false,
+      "collision": false,
+      "maximum_speed_mps": 0.94176,
+      "minimum_reference_distance_m": 19.998203219391243,
+      "final_speed_mps": 6.51601864113543e-13,
+      "errors": []
+    },
+    {
+      "phase": "before",
+      "name": "speed-5-clearance-40",
+      "rows": 1250,
+      "pass": false,
+      "collision": false,
+      "maximum_speed_mps": 0.94176,
+      "minimum_reference_distance_m": 39.99820321939124,
+      "final_speed_mps": 6.51601864113543e-13,
+      "errors": []
+    },
+    {
+      "phase": "before",
+      "name": "speed-5-clearance-80",
+      "rows": 1250,
+      "pass": false,
+      "collision": false,
+      "maximum_speed_mps": 0.94176,
+      "minimum_reference_distance_m": 79.99820321939124,
+      "final_speed_mps": 6.51601864113543e-13,
+      "errors": []
+    },
+    {
+      "phase": "before",
+      "name": "speed-10-clearance-20",
+      "rows": 1250,
+      "pass": false,
+      "collision": false,
+      "maximum_speed_mps": 0.94176,
+      "minimum_reference_distance_m": 19.998203219391243,
+      "final_speed_mps": 6.51601864113543e-13,
+      "errors": []
+    },
+    {
+      "phase": "before",
+      "name": "speed-10-clearance-40",
+      "rows": 1250,
+      "pass": false,
+      "collision": false,
+      "maximum_speed_mps": 0.94176,
+      "minimum_reference_distance_m": 39.99820321939124,
+      "final_speed_mps": 6.51601864113543e-13,
+      "errors": []
+    },
+    {
+      "phase": "before",
+      "name": "speed-10-clearance-80",
+      "rows": 1250,
+      "pass": false,
+      "collision": false,
+      "maximum_speed_mps": 0.94176,
+      "minimum_reference_distance_m": 79.99820321939124,
+      "final_speed_mps": 6.51601864113543e-13,
+      "errors": []
+    },
+    {
+      "phase": "before",
+      "name": "speed-15-clearance-20",
+      "rows": 1250,
+      "pass": false,
+      "collision": false,
+      "maximum_speed_mps": 0.94176,
+      "minimum_reference_distance_m": 19.998203219391243,
+      "final_speed_mps": 6.51601864113543e-13,
+      "errors": []
+    },
+    {
+      "phase": "before",
+      "name": "speed-15-clearance-40",
+      "rows": 1250,
+      "pass": false,
+      "collision": false,
+      "maximum_speed_mps": 0.94176,
+      "minimum_reference_distance_m": 39.99820321939124,
+      "final_speed_mps": 6.51601864113543e-13,
+      "errors": []
+    },
+    {
+      "phase": "before",
+      "name": "speed-15-clearance-80",
+      "rows": 1250,
+      "pass": false,
+      "collision": false,
+      "maximum_speed_mps": 0.94176,
+      "minimum_reference_distance_m": 79.99820321939124,
+      "final_speed_mps": 6.51601864113543e-13,
+      "errors": []
+    },
+    {
+      "phase": "after",
+      "name": "speed-5-clearance-20",
+      "rows": 113,
+      "pass": true,
+      "collision": false,
+      "maximum_speed_mps": 4.152565388345955,
+      "minimum_reference_distance_m": 12.78689840326166,
+      "final_speed_mps": 0.042315403471052525,
+      "errors": []
+    },
+    {
+      "phase": "after",
+      "name": "speed-5-clearance-40",
+      "rows": 230,
+      "pass": true,
+      "collision": false,
+      "maximum_speed_mps": 5.018508942998153,
+      "minimum_reference_distance_m": 14.402071081609485,
+      "final_speed_mps": 0.01856225531665281,
+      "errors": []
+    },
+    {
+      "phase": "after",
+      "name": "speed-5-clearance-80",
+      "rows": 480,
+      "pass": true,
+      "collision": false,
+      "maximum_speed_mps": 5.018508942998153,
+      "minimum_reference_distance_m": 14.402871065680145,
+      "final_speed_mps": 0.018562255316863313,
+      "errors": []
+    },
+    {
+      "phase": "after",
+      "name": "speed-10-clearance-20",
+      "rows": 113,
+      "pass": true,
+      "collision": false,
+      "maximum_speed_mps": 4.152565388345955,
+      "minimum_reference_distance_m": 12.78689840326166,
+      "final_speed_mps": 0.042315403471052525,
+      "errors": []
+    },
+    {
+      "phase": "after",
+      "name": "speed-10-clearance-40",
+      "rows": 203,
+      "pass": true,
+      "collision": false,
+      "maximum_speed_mps": 7.608496871540045,
+      "minimum_reference_distance_m": 15.832122755962146,
+      "final_speed_mps": 0.04230281614168987,
+      "errors": []
+    },
+    {
+      "phase": "after",
+      "name": "speed-10-clearance-80",
+      "rows": 337,
+      "pass": true,
+      "collision": false,
+      "maximum_speed_mps": 10.01823006756372,
+      "minimum_reference_distance_m": 15.376288324185069,
+      "final_speed_mps": 0.026465099402577113,
+      "errors": []
+    },
+    {
+      "phase": "after",
+      "name": "speed-15-clearance-20",
+      "rows": 113,
+      "pass": true,
+      "collision": false,
+      "maximum_speed_mps": 4.152565388345955,
+      "minimum_reference_distance_m": 12.78689840326166,
+      "final_speed_mps": 0.042315403471052525,
+      "errors": []
+    },
+    {
+      "phase": "after",
+      "name": "speed-15-clearance-40",
+      "rows": 203,
+      "pass": true,
+      "collision": false,
+      "maximum_speed_mps": 7.608496871540045,
+      "minimum_reference_distance_m": 15.832122755962146,
+      "final_speed_mps": 0.04230281614168987,
+      "errors": []
+    },
+    {
+      "phase": "after",
+      "name": "speed-15-clearance-80",
+      "rows": 340,
+      "pass": true,
+      "collision": false,
+      "maximum_speed_mps": 12.856391913665773,
+      "minimum_reference_distance_m": 11.05401657233432,
+      "final_speed_mps": 0.01067668775263968,
+      "errors": []
+    },
+    {
+      "phase": "repeat",
+      "name": "speed-5-clearance-20",
+      "rows": 113,
+      "pass": true,
+      "collision": false,
+      "maximum_speed_mps": 4.152565388345955,
+      "minimum_reference_distance_m": 12.78689840326166,
+      "final_speed_mps": 0.042315403471052525,
+      "errors": []
+    },
+    {
+      "phase": "repeat",
+      "name": "speed-5-clearance-40",
+      "rows": 230,
+      "pass": true,
+      "collision": false,
+      "maximum_speed_mps": 5.018508942998153,
+      "minimum_reference_distance_m": 14.402071081609485,
+      "final_speed_mps": 0.01856225531665281,
+      "errors": []
+    },
+    {
+      "phase": "repeat",
+      "name": "speed-5-clearance-80",
+      "rows": 480,
+      "pass": true,
+      "collision": false,
+      "maximum_speed_mps": 5.018508942998153,
+      "minimum_reference_distance_m": 14.402871065680145,
+      "final_speed_mps": 0.018562255316863313,
+      "errors": []
+    },
+    {
+      "phase": "repeat",
+      "name": "speed-10-clearance-20",
+      "rows": 113,
+      "pass": true,
+      "collision": false,
+      "maximum_speed_mps": 4.152565388345955,
+      "minimum_reference_distance_m": 12.78689840326166,
+      "final_speed_mps": 0.042315403471052525,
+      "errors": []
+    },
+    {
+      "phase": "repeat",
+      "name": "speed-10-clearance-40",
+      "rows": 203,
+      "pass": true,
+      "collision": false,
+      "maximum_speed_mps": 7.608496871540045,
+      "minimum_reference_distance_m": 15.832122755962146,
+      "final_speed_mps": 0.04230281614168987,
+      "errors": []
+    },
+    {
+      "phase": "repeat",
+      "name": "speed-10-clearance-80",
+      "rows": 337,
+      "pass": true,
+      "collision": false,
+      "maximum_speed_mps": 10.01823006756372,
+      "minimum_reference_distance_m": 15.376288324185069,
+      "final_speed_mps": 0.026465099402577113,
+      "errors": []
+    },
+    {
+      "phase": "repeat",
+      "name": "speed-15-clearance-20",
+      "rows": 113,
+      "pass": true,
+      "collision": false,
+      "maximum_speed_mps": 4.152565388345955,
+      "minimum_reference_distance_m": 12.78689840326166,
+      "final_speed_mps": 0.042315403471052525,
+      "errors": []
+    },
+    {
+      "phase": "repeat",
+      "name": "speed-15-clearance-40",
+      "rows": 203,
+      "pass": true,
+      "collision": false,
+      "maximum_speed_mps": 7.608496871540045,
+      "minimum_reference_distance_m": 15.832122755962146,
+      "final_speed_mps": 0.04230281614168987,
+      "errors": []
+    },
+    {
+      "phase": "repeat",
+      "name": "speed-15-clearance-80",
+      "rows": 340,
+      "pass": true,
+      "collision": false,
+      "maximum_speed_mps": 12.856391913665773,
+      "minimum_reference_distance_m": 11.05401657233432,
+      "final_speed_mps": 0.01067668775263968,
+      "errors": []
+    }
+  ],
+  "telemetry_rows": 15514,
+  "errors": []
+}

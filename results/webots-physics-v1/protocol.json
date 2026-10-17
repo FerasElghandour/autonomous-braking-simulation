@@ -1,0 +1,30 @@
+{
+  "date": "2026-10-17",
+  "hardware": "Apple M2 Max, 96 GB RAM",
+  "host": "macOS 27.0.1 (26A434), ARM64",
+  "runtime": {
+    "name": "Official Cyberbotics Webots R2025b nightly_16_10_2026",
+    "prerelease": true,
+    "release_url": "https://github.com/cyberbotics/webots/releases/tag/nightly_16_10_2026",
+    "source_revision": "b98cfb89c61f3d3acc9bf31833e044f38d1321fc",
+    "asset_url": "https://github.com/cyberbotics/webots/releases/download/nightly_16_10_2026/webots-R2025b.dmg",
+    "asset_sha256": "131e30c703c98a54154560785a0dda7d9416a7866ecf7ca7cd9dd186d4de8abc",
+    "startup_fix": "https://github.com/cyberbotics/webots/pull/7032",
+    "installed_application_replaced": false,
+    "execution": "Official DMG mounted read-only; no binary patch."
+  },
+  "world_assets": "Version-pinned official R2025a PROTO URLs, unchanged world template.",
+  "design": "3 requested cruise targets (5, 10, 15 m/s) x 3 initial reference clearances (20, 40, 80 m); every run starts from rest; world randomSeed=1.",
+  "before": "Nine executions of the previous published controller; all timed out without driving after unavailable startup speed triggered a permanent brake response.",
+  "after": "Same nine configurations with a <=1 s, zero-cruise/full-brake initialization hold requiring 3 consecutive valid samples; later faults latch zero cruise/full brake.",
+  "repeat": "The first corrected matrix is also retained. The primary after matrix was rerun after correcting a source docstring; identical world seed and controller behavior. This is a repeatability check, not nine independent trials.",
+  "acceptance": "Existing movement, braking, stop, no-contact and >=3 m reference-distance requirements; unavailable startup samples are counted separately only during a bounded braked hold with <0.05 m independently measured X movement.",
+  "distance_definition": "Obstacle front-face X minus vehicle reference X; not bumper clearance. Contact is separately measured by Webots contact points.",
+  "limits": [
+    "Nine deterministic design points, not independent random trials or statistical safety evidence.",
+    "Requested targets are not initial speeds and are not all reached. No 15 m/s emergency-braking claim.",
+    "One static obstacle, straight road, single world seed; no physical vehicle, moving-obstacle physics, weather, injected physics faults, friction sweep or certification.",
+    "The earlier 1,836-run kinematic stress report uses its recorded earlier source revision and remains a separate software-model experiment.",
+    "Before/after source archives contain exact executed controllers/runner and all generated case worlds/configs. Historical results are preserved separately."
+  ]
+}

@@ -14,7 +14,18 @@ at tag `R2025a`. Nothing here was invented from memory. The bundled app was insp
 | `StraightRoadSegment.proto` (source) | fetched from `https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/road/protos/StraightRoadSegment.proto` | Exact field names/defaults: `width`, `numberOfLanes`, `numberOfForwardLanes`, `lines` (`RoadLine`), `rightBarrier`/`leftBarrier`, `length`, default orientation (road extends along local +X from `translation` when `rotation` angle is 0) |
 | `LincolnMKZ.proto` (source) | fetched from `https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/vehicles/protos/lincoln/LincolnMKZ.proto` | Exact field names: `translation` (default z=0.4), `rotation` (default `0 0 1 0`, facing +X), `controller`, `supervisor`, `sensorsSlotFront/Rear/Top/Center` |
 | `driver.py` (Python API source) | `/Applications/Webots.app/Contents/lib/controller/python/vehicle/driver.py` | Confirmed `Driver` is a subclass of `Supervisor`; exact method set: `setCruisingSpeed`, `setSteeringAngle`, `setBrakeIntensity`, `setThrottle`, `getCurrentSpeed`, `getTargetCruisingSpeed`, `step()`. Confirmed the Python `controller`/`vehicle` packages are pure-Python + `ctypes` bindings (no per-Python-version compiled extension), so they are not tied to one specific CPython minor version. |
-| Webots release page | `https://github.com/cyberbotics/webots/releases/tag/R2025a` | Confirmed R2025a is the latest non-prerelease stable release (only newer entries were dated nightly builds, correctly rejected per instructions) |
+| Webots stable release page | `https://github.com/cyberbotics/webots/releases/tag/R2025a` | R2025a remains the stable release; the original world and asset references use this tag. |
+
+## macOS 27 runtime follow-up, 17 October 2026
+
+Stable R2025a's localhost connection probe falsely reports occupied ports on macOS 27.
+This was reproduced both in Webots and in an isolated diagnostic using its bundled QtNetwork.
+Cyberbotics [issue #6976](https://github.com/cyberbotics/webots/issues/6976) and merged
+[fix #7032](https://github.com/cyberbotics/webots/pull/7032) document the same defect.
+Fresh physics uses the official [nightly_16_10_2026 R2025b build](https://github.com/cyberbotics/webots/releases/tag/nightly_16_10_2026),
+mounted read-only alongside the existing installed app. No binary was patched. This is a
+prerelease runtime, explicitly recorded in the [experiment protocol](../results/webots-physics-v1/protocol.json).
+The world still references the original version-pinned R2025a assets.
 
 ## Key decisions this drove
 
