@@ -27,7 +27,7 @@ flowchart LR
 
 The supervisor measures physical ego speed, pose, collision-hull clearance and contact directly. It also commands scripted kinematic box targets; these are not validated lead-vehicle or continuous cut-in dynamics. The policies receive no ground-truth distance, target speed or future motion. [Controller](controllers/robust_car/robust_car.py) · [Supervisor](controllers/robust_supervisor/robust_supervisor.py).
 
-## Reproduce and inspect
+## Run locally
 
 Python 3.11 or later. Webots supplies its own controller bindings.
 
