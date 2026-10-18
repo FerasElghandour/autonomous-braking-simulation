@@ -1,4 +1,14 @@
-# Current validation extension
+# At-speed validation extension
+
+On the local Apple M2 Max, 66 executions covered 11 designed conditions, three physics seeds and two policies. Both policies passed 27/33 runs and recorded six contacts. All short-gap failures are retained. The stopping envelope increased clearance in several conditions without improving the pass count.
+
+**91 unit tests pass.** The new telemetry audit checks all 66 runs / 22,416 rows, including queued target poses, collision-hull geometry, contacts, stop measures and verdicts. Tests reject forged clearances, hidden contacts and missing rows. This is a consistency audit, not an independent physical reproduction.
+
+Four development cases were separated from the frozen evaluation. Hazards appear after independently measured 10/15 m/s cruise. Targets are scripted kinematic boxes, sensor faults are software injections and friction values are parameters. Most deterministic cases repeat identically across seeds. No real-vehicle or certified operating range is established.
+
+[Protocol, raw records, source and results](results/at-speed-v2/RESULTS.md).
+
+## Preserved from-rest physics extension
 
 86 controller/validation unit tests passed on the M2 Max, Python 3.14.3. Nine fresh Webots matrix cases passed, with no obstacle contact and 11.05–15.83 m minimum reference distance. The same nine configurations also passed a same-seed repeat check. These are deterministic runs starting from rest, not independent safety trials or braking tests initialized at the requested cruise speeds.
 

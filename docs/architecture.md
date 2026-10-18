@@ -65,3 +65,12 @@ reported decisions. It is a simulation validation boundary, not a vehicle safety
   `car_start_position_m` and `obstacle_position_m` are not used to procedurally generate the
   world -- they must be kept in sync with the world file's baked-in translations by hand. This is
   documented in `scenario.json` itself and is an intentional scope limit for milestone 1.
+
+
+## At-speed comparison harness
+
+`scripts/robust_matrix.py` generates a separate family using `robust_car` and `robust_supervisor`. A 120 m no-hit-aware range frontend allows measured cruise before target introduction. Both policies then use only sensor range/speed; supervisor ground truth is reserved for measurement. The common frontend and a controlled hazard-appearance phase distinguish this comparator from the original hand-authored static world above.
+
+The supervisor commands static, constant-speed or decelerating kinematic box targets. Translation updates reach physics on the next 32 ms step, which the raw audit reconstructs. Actual orientation and pinned vehicle bounding geometry provide signed collision-hull X clearance. Scenario noise/delay/dropouts are explicit software inputs. The new stopping envelope and stale guard are deterministic control logic; there is no trained braking model.
+
+See [the full protocol and observed failures](../results/at-speed-v2/RESULTS.md). The original nine-case world and earlier kinematic stress model remain separate.

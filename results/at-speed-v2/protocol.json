@@ -1,0 +1,1271 @@
+{
+  "name": "webots-cruise-then-hazard-v2",
+  "declared_date": "2026-10-17",
+  "source_base_commit": "80d0b38943ed502d697479142b521aaef65ad685",
+  "stage": "frozen-evaluation",
+  "physics_seeds": [
+    101,
+    202,
+    303
+  ],
+  "policies": [
+    "legacy_ttc",
+    "stopping_envelope"
+  ],
+  "source_sha256": {
+    "scripts/robust_matrix.py": "f6956a665c15a0aeb2e7e25cd90c001174d5b47b34982ca8113255b4480beed2",
+    "worlds/obstacle_braking.wbt": "51f002e4e540786ab46b3745cd61f58a99f79167b23c2833a29d88add427fa94",
+    "controllers/autonomous_car/autonomous_car.py": "f09ccf3ddc3f458532f06eaabbf4e661d5db32612948f10e4611b723b71ad456",
+    "controllers/experiment_supervisor/experiment_supervisor.py": "3fcf4e7cda1e1209a88f270ff7c377222211a801edabd0349166ca76c8282720",
+    "controllers/robust_car/robust_car.py": "1d0e4a90f63c9d129afe4af2e6d078f40188bbfb9afe5deaa96c26a3f94e5611",
+    "controllers/robust_supervisor/robust_supervisor.py": "2fe40f7d109c224504f71395b91970c1587fa6aeb8e03709c18bc9f24ca12b9d"
+  },
+  "acceptance": "verified cruise within 5% for 20 steps, stop below 0.1 m/s, no obstacle contact, minimum collision-hull clearance >=1 m; report stress failures too",
+  "scope": "Physical ego vehicle with scripted kinematic box targets introduced after measured cruise. Static, moving and decelerating targets; contact-friction parameter changes; software delay, dropout and Gaussian range-noise injection. Not a validated road, lead-vehicle, weather, perception or certification model. Physics seeds are repeats within this small designed family, not independent traffic scenarios.",
+  "constants": "stopping envelope: margin 2 m + speed*0.35 s + speed^2/(2*3 m/s^2); full brake; stale threshold 0.16 s. Deceleration is a design assumption, not calibrated friction truth.",
+  "geometry_source": "https://github.com/cyberbotics/webots/blob/R2025a/projects/vehicles/protos/lincoln/LincolnMKZ.proto",
+  "cases": [
+    {
+      "name": "stationary-10-gap30-seed101-legacy_ttc",
+      "case": "stationary-10-gap30",
+      "seed": 101,
+      "policy": "legacy_ttc",
+      "stress": false,
+      "status": "prepared",
+      "config": {
+        "name": "stationary-10-gap30",
+        "target_speed_mps": 10.0,
+        "hazard_reference_gap_m": 30.0,
+        "policy": "legacy_ttc",
+        "random_seed": 101,
+        "time_step_ms": 32,
+        "sensor_max_range_m": 120.0,
+        "friction": 0.9
+      }
+    },
+    {
+      "name": "stationary-10-gap30-seed101-stopping_envelope",
+      "case": "stationary-10-gap30",
+      "seed": 101,
+      "policy": "stopping_envelope",
+      "stress": false,
+      "status": "prepared",
+      "config": {
+        "name": "stationary-10-gap30",
+        "target_speed_mps": 10.0,
+        "hazard_reference_gap_m": 30.0,
+        "policy": "stopping_envelope",
+        "random_seed": 101,
+        "time_step_ms": 32,
+        "sensor_max_range_m": 120.0,
+        "friction": 0.9
+      }
+    },
+    {
+      "name": "stationary-10-gap30-seed202-legacy_ttc",
+      "case": "stationary-10-gap30",
+      "seed": 202,
+      "policy": "legacy_ttc",
+      "stress": false,
+      "status": "prepared",
+      "config": {
+        "name": "stationary-10-gap30",
+        "target_speed_mps": 10.0,
+        "hazard_reference_gap_m": 30.0,
+        "policy": "legacy_ttc",
+        "random_seed": 202,
+        "time_step_ms": 32,
+        "sensor_max_range_m": 120.0,
+        "friction": 0.9
+      }
+    },
+    {
+      "name": "stationary-10-gap30-seed202-stopping_envelope",
+      "case": "stationary-10-gap30",
+      "seed": 202,
+      "policy": "stopping_envelope",
+      "stress": false,
+      "status": "prepared",
+      "config": {
+        "name": "stationary-10-gap30",
+        "target_speed_mps": 10.0,
+        "hazard_reference_gap_m": 30.0,
+        "policy": "stopping_envelope",
+        "random_seed": 202,
+        "time_step_ms": 32,
+        "sensor_max_range_m": 120.0,
+        "friction": 0.9
+      }
+    },
+    {
+      "name": "stationary-10-gap30-seed303-legacy_ttc",
+      "case": "stationary-10-gap30",
+      "seed": 303,
+      "policy": "legacy_ttc",
+      "stress": false,
+      "status": "prepared",
+      "config": {
+        "name": "stationary-10-gap30",
+        "target_speed_mps": 10.0,
+        "hazard_reference_gap_m": 30.0,
+        "policy": "legacy_ttc",
+        "random_seed": 303,
+        "time_step_ms": 32,
+        "sensor_max_range_m": 120.0,
+        "friction": 0.9
+      }
+    },
+    {
+      "name": "stationary-10-gap30-seed303-stopping_envelope",
+      "case": "stationary-10-gap30",
+      "seed": 303,
+      "policy": "stopping_envelope",
+      "stress": false,
+      "status": "prepared",
+      "config": {
+        "name": "stationary-10-gap30",
+        "target_speed_mps": 10.0,
+        "hazard_reference_gap_m": 30.0,
+        "policy": "stopping_envelope",
+        "random_seed": 303,
+        "time_step_ms": 32,
+        "sensor_max_range_m": 120.0,
+        "friction": 0.9
+      }
+    },
+    {
+      "name": "stationary-15-gap45-seed101-legacy_ttc",
+      "case": "stationary-15-gap45",
+      "seed": 101,
+      "policy": "legacy_ttc",
+      "stress": false,
+      "status": "prepared",
+      "config": {
+        "name": "stationary-15-gap45",
+        "target_speed_mps": 15.0,
+        "hazard_reference_gap_m": 45.0,
+        "policy": "legacy_ttc",
+        "random_seed": 101,
+        "time_step_ms": 32,
+        "sensor_max_range_m": 120.0,
+        "friction": 0.9
+      }
+    },
+    {
+      "name": "stationary-15-gap45-seed101-stopping_envelope",
+      "case": "stationary-15-gap45",
+      "seed": 101,
+      "policy": "stopping_envelope",
+      "stress": false,
+      "status": "prepared",
+      "config": {
+        "name": "stationary-15-gap45",
+        "target_speed_mps": 15.0,
+        "hazard_reference_gap_m": 45.0,
+        "policy": "stopping_envelope",
+        "random_seed": 101,
+        "time_step_ms": 32,
+        "sensor_max_range_m": 120.0,
+        "friction": 0.9
+      }
+    },
+    {
+      "name": "stationary-15-gap45-seed202-legacy_ttc",
+      "case": "stationary-15-gap45",
+      "seed": 202,
+      "policy": "legacy_ttc",
+      "stress": false,
+      "status": "prepared",
+      "config": {
+        "name": "stationary-15-gap45",
+        "target_speed_mps": 15.0,
+        "hazard_reference_gap_m": 45.0,
+        "policy": "legacy_ttc",
+        "random_seed": 202,
+        "time_step_ms": 32,
+        "sensor_max_range_m": 120.0,
+        "friction": 0.9
+      }
+    },
+    {
+      "name": "stationary-15-gap45-seed202-stopping_envelope",
+      "case": "stationary-15-gap45",
+      "seed": 202,
+      "policy": "stopping_envelope",
+      "stress": false,
+      "status": "prepared",
+      "config": {
+        "name": "stationary-15-gap45",
+        "target_speed_mps": 15.0,
+        "hazard_reference_gap_m": 45.0,
+        "policy": "stopping_envelope",
+        "random_seed": 202,
+        "time_step_ms": 32,
+        "sensor_max_range_m": 120.0,
+        "friction": 0.9
+      }
+    },
+    {
+      "name": "stationary-15-gap45-seed303-legacy_ttc",
+      "case": "stationary-15-gap45",
+      "seed": 303,
+      "policy": "legacy_ttc",
+      "stress": false,
+      "status": "prepared",
+      "config": {
+        "name": "stationary-15-gap45",
+        "target_speed_mps": 15.0,
+        "hazard_reference_gap_m": 45.0,
+        "policy": "legacy_ttc",
+        "random_seed": 303,
+        "time_step_ms": 32,
+        "sensor_max_range_m": 120.0,
+        "friction": 0.9
+      }
+    },
+    {
+      "name": "stationary-15-gap45-seed303-stopping_envelope",
+      "case": "stationary-15-gap45",
+      "seed": 303,
+      "policy": "stopping_envelope",
+      "stress": false,
+      "status": "prepared",
+      "config": {
+        "name": "stationary-15-gap45",
+        "target_speed_mps": 15.0,
+        "hazard_reference_gap_m": 45.0,
+        "policy": "stopping_envelope",
+        "random_seed": 303,
+        "time_step_ms": 32,
+        "sensor_max_range_m": 120.0,
+        "friction": 0.9
+      }
+    },
+    {
+      "name": "low-friction-15-gap45-seed101-legacy_ttc",
+      "case": "low-friction-15-gap45",
+      "seed": 101,
+      "policy": "legacy_ttc",
+      "stress": false,
+      "status": "prepared",
+      "config": {
+        "name": "low-friction-15-gap45",
+        "target_speed_mps": 15.0,
+        "hazard_reference_gap_m": 45.0,
+        "friction": 0.35,
+        "policy": "legacy_ttc",
+        "random_seed": 101,
+        "time_step_ms": 32,
+        "sensor_max_range_m": 120.0
+      }
+    },
+    {
+      "name": "low-friction-15-gap45-seed101-stopping_envelope",
+      "case": "low-friction-15-gap45",
+      "seed": 101,
+      "policy": "stopping_envelope",
+      "stress": false,
+      "status": "prepared",
+      "config": {
+        "name": "low-friction-15-gap45",
+        "target_speed_mps": 15.0,
+        "hazard_reference_gap_m": 45.0,
+        "friction": 0.35,
+        "policy": "stopping_envelope",
+        "random_seed": 101,
+        "time_step_ms": 32,
+        "sensor_max_range_m": 120.0
+      }
+    },
+    {
+      "name": "low-friction-15-gap45-seed202-legacy_ttc",
+      "case": "low-friction-15-gap45",
+      "seed": 202,
+      "policy": "legacy_ttc",
+      "stress": false,
+      "status": "prepared",
+      "config": {
+        "name": "low-friction-15-gap45",
+        "target_speed_mps": 15.0,
+        "hazard_reference_gap_m": 45.0,
+        "friction": 0.35,
+        "policy": "legacy_ttc",
+        "random_seed": 202,
+        "time_step_ms": 32,
+        "sensor_max_range_m": 120.0
+      }
+    },
+    {
+      "name": "low-friction-15-gap45-seed202-stopping_envelope",
+      "case": "low-friction-15-gap45",
+      "seed": 202,
+      "policy": "stopping_envelope",
+      "stress": false,
+      "status": "prepared",
+      "config": {
+        "name": "low-friction-15-gap45",
+        "target_speed_mps": 15.0,
+        "hazard_reference_gap_m": 45.0,
+        "friction": 0.35,
+        "policy": "stopping_envelope",
+        "random_seed": 202,
+        "time_step_ms": 32,
+        "sensor_max_range_m": 120.0
+      }
+    },
+    {
+      "name": "low-friction-15-gap45-seed303-legacy_ttc",
+      "case": "low-friction-15-gap45",
+      "seed": 303,
+      "policy": "legacy_ttc",
+      "stress": false,
+      "status": "prepared",
+      "config": {
+        "name": "low-friction-15-gap45",
+        "target_speed_mps": 15.0,
+        "hazard_reference_gap_m": 45.0,
+        "friction": 0.35,
+        "policy": "legacy_ttc",
+        "random_seed": 303,
+        "time_step_ms": 32,
+        "sensor_max_range_m": 120.0
+      }
+    },
+    {
+      "name": "low-friction-15-gap45-seed303-stopping_envelope",
+      "case": "low-friction-15-gap45",
+      "seed": 303,
+      "policy": "stopping_envelope",
+      "stress": false,
+      "status": "prepared",
+      "config": {
+        "name": "low-friction-15-gap45",
+        "target_speed_mps": 15.0,
+        "hazard_reference_gap_m": 45.0,
+        "friction": 0.35,
+        "policy": "stopping_envelope",
+        "random_seed": 303,
+        "time_step_ms": 32,
+        "sensor_max_range_m": 120.0
+      }
+    },
+    {
+      "name": "short-gap-15-gap18-seed101-legacy_ttc",
+      "case": "short-gap-15-gap18",
+      "seed": 101,
+      "policy": "legacy_ttc",
+      "stress": false,
+      "status": "prepared",
+      "config": {
+        "name": "short-gap-15-gap18",
+        "target_speed_mps": 15.0,
+        "hazard_reference_gap_m": 18.0,
+        "policy": "legacy_ttc",
+        "random_seed": 101,
+        "time_step_ms": 32,
+        "sensor_max_range_m": 120.0,
+        "friction": 0.9
+      }
+    },
+    {
+      "name": "short-gap-15-gap18-seed101-stopping_envelope",
+      "case": "short-gap-15-gap18",
+      "seed": 101,
+      "policy": "stopping_envelope",
+      "stress": false,
+      "status": "prepared",
+      "config": {
+        "name": "short-gap-15-gap18",
+        "target_speed_mps": 15.0,
+        "hazard_reference_gap_m": 18.0,
+        "policy": "stopping_envelope",
+        "random_seed": 101,
+        "time_step_ms": 32,
+        "sensor_max_range_m": 120.0,
+        "friction": 0.9
+      }
+    },
+    {
+      "name": "short-gap-15-gap18-seed202-legacy_ttc",
+      "case": "short-gap-15-gap18",
+      "seed": 202,
+      "policy": "legacy_ttc",
+      "stress": false,
+      "status": "prepared",
+      "config": {
+        "name": "short-gap-15-gap18",
+        "target_speed_mps": 15.0,
+        "hazard_reference_gap_m": 18.0,
+        "policy": "legacy_ttc",
+        "random_seed": 202,
+        "time_step_ms": 32,
+        "sensor_max_range_m": 120.0,
+        "friction": 0.9
+      }
+    },
+    {
+      "name": "short-gap-15-gap18-seed202-stopping_envelope",
+      "case": "short-gap-15-gap18",
+      "seed": 202,
+      "policy": "stopping_envelope",
+      "stress": false,
+      "status": "prepared",
+      "config": {
+        "name": "short-gap-15-gap18",
+        "target_speed_mps": 15.0,
+        "hazard_reference_gap_m": 18.0,
+        "policy": "stopping_envelope",
+        "random_seed": 202,
+        "time_step_ms": 32,
+        "sensor_max_range_m": 120.0,
+        "friction": 0.9
+      }
+    },
+    {
+      "name": "short-gap-15-gap18-seed303-legacy_ttc",
+      "case": "short-gap-15-gap18",
+      "seed": 303,
+      "policy": "legacy_ttc",
+      "stress": false,
+      "status": "prepared",
+      "config": {
+        "name": "short-gap-15-gap18",
+        "target_speed_mps": 15.0,
+        "hazard_reference_gap_m": 18.0,
+        "policy": "legacy_ttc",
+        "random_seed": 303,
+        "time_step_ms": 32,
+        "sensor_max_range_m": 120.0,
+        "friction": 0.9
+      }
+    },
+    {
+      "name": "short-gap-15-gap18-seed303-stopping_envelope",
+      "case": "short-gap-15-gap18",
+      "seed": 303,
+      "policy": "stopping_envelope",
+      "stress": false,
+      "status": "prepared",
+      "config": {
+        "name": "short-gap-15-gap18",
+        "target_speed_mps": 15.0,
+        "hazard_reference_gap_m": 18.0,
+        "policy": "stopping_envelope",
+        "random_seed": 303,
+        "time_step_ms": 32,
+        "sensor_max_range_m": 120.0,
+        "friction": 0.9
+      }
+    },
+    {
+      "name": "stress-15-gap9-low-friction-seed101-legacy_ttc",
+      "case": "stress-15-gap9-low-friction",
+      "seed": 101,
+      "policy": "legacy_ttc",
+      "stress": true,
+      "status": "prepared",
+      "config": {
+        "name": "stress-15-gap9-low-friction",
+        "target_speed_mps": 15.0,
+        "hazard_reference_gap_m": 9.0,
+        "friction": 0.35,
+        "stress": true,
+        "policy": "legacy_ttc",
+        "random_seed": 101,
+        "time_step_ms": 32,
+        "sensor_max_range_m": 120.0
+      }
+    },
+    {
+      "name": "stress-15-gap9-low-friction-seed101-stopping_envelope",
+      "case": "stress-15-gap9-low-friction",
+      "seed": 101,
+      "policy": "stopping_envelope",
+      "stress": true,
+      "status": "prepared",
+      "config": {
+        "name": "stress-15-gap9-low-friction",
+        "target_speed_mps": 15.0,
+        "hazard_reference_gap_m": 9.0,
+        "friction": 0.35,
+        "stress": true,
+        "policy": "stopping_envelope",
+        "random_seed": 101,
+        "time_step_ms": 32,
+        "sensor_max_range_m": 120.0
+      }
+    },
+    {
+      "name": "stress-15-gap9-low-friction-seed202-legacy_ttc",
+      "case": "stress-15-gap9-low-friction",
+      "seed": 202,
+      "policy": "legacy_ttc",
+      "stress": true,
+      "status": "prepared",
+      "config": {
+        "name": "stress-15-gap9-low-friction",
+        "target_speed_mps": 15.0,
+        "hazard_reference_gap_m": 9.0,
+        "friction": 0.35,
+        "stress": true,
+        "policy": "legacy_ttc",
+        "random_seed": 202,
+        "time_step_ms": 32,
+        "sensor_max_range_m": 120.0
+      }
+    },
+    {
+      "name": "stress-15-gap9-low-friction-seed202-stopping_envelope",
+      "case": "stress-15-gap9-low-friction",
+      "seed": 202,
+      "policy": "stopping_envelope",
+      "stress": true,
+      "status": "prepared",
+      "config": {
+        "name": "stress-15-gap9-low-friction",
+        "target_speed_mps": 15.0,
+        "hazard_reference_gap_m": 9.0,
+        "friction": 0.35,
+        "stress": true,
+        "policy": "stopping_envelope",
+        "random_seed": 202,
+        "time_step_ms": 32,
+        "sensor_max_range_m": 120.0
+      }
+    },
+    {
+      "name": "stress-15-gap9-low-friction-seed303-legacy_ttc",
+      "case": "stress-15-gap9-low-friction",
+      "seed": 303,
+      "policy": "legacy_ttc",
+      "stress": true,
+      "status": "prepared",
+      "config": {
+        "name": "stress-15-gap9-low-friction",
+        "target_speed_mps": 15.0,
+        "hazard_reference_gap_m": 9.0,
+        "friction": 0.35,
+        "stress": true,
+        "policy": "legacy_ttc",
+        "random_seed": 303,
+        "time_step_ms": 32,
+        "sensor_max_range_m": 120.0
+      }
+    },
+    {
+      "name": "stress-15-gap9-low-friction-seed303-stopping_envelope",
+      "case": "stress-15-gap9-low-friction",
+      "seed": 303,
+      "policy": "stopping_envelope",
+      "stress": true,
+      "status": "prepared",
+      "config": {
+        "name": "stress-15-gap9-low-friction",
+        "target_speed_mps": 15.0,
+        "hazard_reference_gap_m": 9.0,
+        "friction": 0.35,
+        "stress": true,
+        "policy": "stopping_envelope",
+        "random_seed": 303,
+        "time_step_ms": 32,
+        "sensor_max_range_m": 120.0
+      }
+    },
+    {
+      "name": "moving-lead-15-gap30-seed101-legacy_ttc",
+      "case": "moving-lead-15-gap30",
+      "seed": 101,
+      "policy": "legacy_ttc",
+      "stress": false,
+      "status": "prepared",
+      "config": {
+        "name": "moving-lead-15-gap30",
+        "target_speed_mps": 15.0,
+        "hazard_reference_gap_m": 30.0,
+        "lead_speed_mps": 8.0,
+        "policy": "legacy_ttc",
+        "random_seed": 101,
+        "time_step_ms": 32,
+        "sensor_max_range_m": 120.0,
+        "friction": 0.9
+      }
+    },
+    {
+      "name": "moving-lead-15-gap30-seed101-stopping_envelope",
+      "case": "moving-lead-15-gap30",
+      "seed": 101,
+      "policy": "stopping_envelope",
+      "stress": false,
+      "status": "prepared",
+      "config": {
+        "name": "moving-lead-15-gap30",
+        "target_speed_mps": 15.0,
+        "hazard_reference_gap_m": 30.0,
+        "lead_speed_mps": 8.0,
+        "policy": "stopping_envelope",
+        "random_seed": 101,
+        "time_step_ms": 32,
+        "sensor_max_range_m": 120.0,
+        "friction": 0.9
+      }
+    },
+    {
+      "name": "moving-lead-15-gap30-seed202-legacy_ttc",
+      "case": "moving-lead-15-gap30",
+      "seed": 202,
+      "policy": "legacy_ttc",
+      "stress": false,
+      "status": "prepared",
+      "config": {
+        "name": "moving-lead-15-gap30",
+        "target_speed_mps": 15.0,
+        "hazard_reference_gap_m": 30.0,
+        "lead_speed_mps": 8.0,
+        "policy": "legacy_ttc",
+        "random_seed": 202,
+        "time_step_ms": 32,
+        "sensor_max_range_m": 120.0,
+        "friction": 0.9
+      }
+    },
+    {
+      "name": "moving-lead-15-gap30-seed202-stopping_envelope",
+      "case": "moving-lead-15-gap30",
+      "seed": 202,
+      "policy": "stopping_envelope",
+      "stress": false,
+      "status": "prepared",
+      "config": {
+        "name": "moving-lead-15-gap30",
+        "target_speed_mps": 15.0,
+        "hazard_reference_gap_m": 30.0,
+        "lead_speed_mps": 8.0,
+        "policy": "stopping_envelope",
+        "random_seed": 202,
+        "time_step_ms": 32,
+        "sensor_max_range_m": 120.0,
+        "friction": 0.9
+      }
+    },
+    {
+      "name": "moving-lead-15-gap30-seed303-legacy_ttc",
+      "case": "moving-lead-15-gap30",
+      "seed": 303,
+      "policy": "legacy_ttc",
+      "stress": false,
+      "status": "prepared",
+      "config": {
+        "name": "moving-lead-15-gap30",
+        "target_speed_mps": 15.0,
+        "hazard_reference_gap_m": 30.0,
+        "lead_speed_mps": 8.0,
+        "policy": "legacy_ttc",
+        "random_seed": 303,
+        "time_step_ms": 32,
+        "sensor_max_range_m": 120.0,
+        "friction": 0.9
+      }
+    },
+    {
+      "name": "moving-lead-15-gap30-seed303-stopping_envelope",
+      "case": "moving-lead-15-gap30",
+      "seed": 303,
+      "policy": "stopping_envelope",
+      "stress": false,
+      "status": "prepared",
+      "config": {
+        "name": "moving-lead-15-gap30",
+        "target_speed_mps": 15.0,
+        "hazard_reference_gap_m": 30.0,
+        "lead_speed_mps": 8.0,
+        "policy": "stopping_envelope",
+        "random_seed": 303,
+        "time_step_ms": 32,
+        "sensor_max_range_m": 120.0,
+        "friction": 0.9
+      }
+    },
+    {
+      "name": "braking-lead-15-gap30-seed101-legacy_ttc",
+      "case": "braking-lead-15-gap30",
+      "seed": 101,
+      "policy": "legacy_ttc",
+      "stress": false,
+      "status": "prepared",
+      "config": {
+        "name": "braking-lead-15-gap30",
+        "target_speed_mps": 15.0,
+        "hazard_reference_gap_m": 30.0,
+        "lead_speed_mps": 12.0,
+        "lead_deceleration_mps2": 4.0,
+        "lead_brake_after_s": 1.0,
+        "policy": "legacy_ttc",
+        "random_seed": 101,
+        "time_step_ms": 32,
+        "sensor_max_range_m": 120.0,
+        "friction": 0.9
+      }
+    },
+    {
+      "name": "braking-lead-15-gap30-seed101-stopping_envelope",
+      "case": "braking-lead-15-gap30",
+      "seed": 101,
+      "policy": "stopping_envelope",
+      "stress": false,
+      "status": "prepared",
+      "config": {
+        "name": "braking-lead-15-gap30",
+        "target_speed_mps": 15.0,
+        "hazard_reference_gap_m": 30.0,
+        "lead_speed_mps": 12.0,
+        "lead_deceleration_mps2": 4.0,
+        "lead_brake_after_s": 1.0,
+        "policy": "stopping_envelope",
+        "random_seed": 101,
+        "time_step_ms": 32,
+        "sensor_max_range_m": 120.0,
+        "friction": 0.9
+      }
+    },
+    {
+      "name": "braking-lead-15-gap30-seed202-legacy_ttc",
+      "case": "braking-lead-15-gap30",
+      "seed": 202,
+      "policy": "legacy_ttc",
+      "stress": false,
+      "status": "prepared",
+      "config": {
+        "name": "braking-lead-15-gap30",
+        "target_speed_mps": 15.0,
+        "hazard_reference_gap_m": 30.0,
+        "lead_speed_mps": 12.0,
+        "lead_deceleration_mps2": 4.0,
+        "lead_brake_after_s": 1.0,
+        "policy": "legacy_ttc",
+        "random_seed": 202,
+        "time_step_ms": 32,
+        "sensor_max_range_m": 120.0,
+        "friction": 0.9
+      }
+    },
+    {
+      "name": "braking-lead-15-gap30-seed202-stopping_envelope",
+      "case": "braking-lead-15-gap30",
+      "seed": 202,
+      "policy": "stopping_envelope",
+      "stress": false,
+      "status": "prepared",
+      "config": {
+        "name": "braking-lead-15-gap30",
+        "target_speed_mps": 15.0,
+        "hazard_reference_gap_m": 30.0,
+        "lead_speed_mps": 12.0,
+        "lead_deceleration_mps2": 4.0,
+        "lead_brake_after_s": 1.0,
+        "policy": "stopping_envelope",
+        "random_seed": 202,
+        "time_step_ms": 32,
+        "sensor_max_range_m": 120.0,
+        "friction": 0.9
+      }
+    },
+    {
+      "name": "braking-lead-15-gap30-seed303-legacy_ttc",
+      "case": "braking-lead-15-gap30",
+      "seed": 303,
+      "policy": "legacy_ttc",
+      "stress": false,
+      "status": "prepared",
+      "config": {
+        "name": "braking-lead-15-gap30",
+        "target_speed_mps": 15.0,
+        "hazard_reference_gap_m": 30.0,
+        "lead_speed_mps": 12.0,
+        "lead_deceleration_mps2": 4.0,
+        "lead_brake_after_s": 1.0,
+        "policy": "legacy_ttc",
+        "random_seed": 303,
+        "time_step_ms": 32,
+        "sensor_max_range_m": 120.0,
+        "friction": 0.9
+      }
+    },
+    {
+      "name": "braking-lead-15-gap30-seed303-stopping_envelope",
+      "case": "braking-lead-15-gap30",
+      "seed": 303,
+      "policy": "stopping_envelope",
+      "stress": false,
+      "status": "prepared",
+      "config": {
+        "name": "braking-lead-15-gap30",
+        "target_speed_mps": 15.0,
+        "hazard_reference_gap_m": 30.0,
+        "lead_speed_mps": 12.0,
+        "lead_deceleration_mps2": 4.0,
+        "lead_brake_after_s": 1.0,
+        "policy": "stopping_envelope",
+        "random_seed": 303,
+        "time_step_ms": 32,
+        "sensor_max_range_m": 120.0,
+        "friction": 0.9
+      }
+    },
+    {
+      "name": "sudden-appearance-10-gap22-seed101-legacy_ttc",
+      "case": "sudden-appearance-10-gap22",
+      "seed": 101,
+      "policy": "legacy_ttc",
+      "stress": false,
+      "status": "prepared",
+      "config": {
+        "name": "sudden-appearance-10-gap22",
+        "target_speed_mps": 10.0,
+        "hazard_reference_gap_m": 22.0,
+        "policy": "legacy_ttc",
+        "random_seed": 101,
+        "time_step_ms": 32,
+        "sensor_max_range_m": 120.0,
+        "friction": 0.9
+      }
+    },
+    {
+      "name": "sudden-appearance-10-gap22-seed101-stopping_envelope",
+      "case": "sudden-appearance-10-gap22",
+      "seed": 101,
+      "policy": "stopping_envelope",
+      "stress": false,
+      "status": "prepared",
+      "config": {
+        "name": "sudden-appearance-10-gap22",
+        "target_speed_mps": 10.0,
+        "hazard_reference_gap_m": 22.0,
+        "policy": "stopping_envelope",
+        "random_seed": 101,
+        "time_step_ms": 32,
+        "sensor_max_range_m": 120.0,
+        "friction": 0.9
+      }
+    },
+    {
+      "name": "sudden-appearance-10-gap22-seed202-legacy_ttc",
+      "case": "sudden-appearance-10-gap22",
+      "seed": 202,
+      "policy": "legacy_ttc",
+      "stress": false,
+      "status": "prepared",
+      "config": {
+        "name": "sudden-appearance-10-gap22",
+        "target_speed_mps": 10.0,
+        "hazard_reference_gap_m": 22.0,
+        "policy": "legacy_ttc",
+        "random_seed": 202,
+        "time_step_ms": 32,
+        "sensor_max_range_m": 120.0,
+        "friction": 0.9
+      }
+    },
+    {
+      "name": "sudden-appearance-10-gap22-seed202-stopping_envelope",
+      "case": "sudden-appearance-10-gap22",
+      "seed": 202,
+      "policy": "stopping_envelope",
+      "stress": false,
+      "status": "prepared",
+      "config": {
+        "name": "sudden-appearance-10-gap22",
+        "target_speed_mps": 10.0,
+        "hazard_reference_gap_m": 22.0,
+        "policy": "stopping_envelope",
+        "random_seed": 202,
+        "time_step_ms": 32,
+        "sensor_max_range_m": 120.0,
+        "friction": 0.9
+      }
+    },
+    {
+      "name": "sudden-appearance-10-gap22-seed303-legacy_ttc",
+      "case": "sudden-appearance-10-gap22",
+      "seed": 303,
+      "policy": "legacy_ttc",
+      "stress": false,
+      "status": "prepared",
+      "config": {
+        "name": "sudden-appearance-10-gap22",
+        "target_speed_mps": 10.0,
+        "hazard_reference_gap_m": 22.0,
+        "policy": "legacy_ttc",
+        "random_seed": 303,
+        "time_step_ms": 32,
+        "sensor_max_range_m": 120.0,
+        "friction": 0.9
+      }
+    },
+    {
+      "name": "sudden-appearance-10-gap22-seed303-stopping_envelope",
+      "case": "sudden-appearance-10-gap22",
+      "seed": 303,
+      "policy": "stopping_envelope",
+      "stress": false,
+      "status": "prepared",
+      "config": {
+        "name": "sudden-appearance-10-gap22",
+        "target_speed_mps": 10.0,
+        "hazard_reference_gap_m": 22.0,
+        "policy": "stopping_envelope",
+        "random_seed": 303,
+        "time_step_ms": 32,
+        "sensor_max_range_m": 120.0,
+        "friction": 0.9
+      }
+    },
+    {
+      "name": "delayed-range-15-gap45-seed101-legacy_ttc",
+      "case": "delayed-range-15-gap45",
+      "seed": 101,
+      "policy": "legacy_ttc",
+      "stress": false,
+      "status": "prepared",
+      "config": {
+        "name": "delayed-range-15-gap45",
+        "target_speed_mps": 15.0,
+        "hazard_reference_gap_m": 45.0,
+        "sensor_delay_s": 0.256,
+        "policy": "legacy_ttc",
+        "random_seed": 101,
+        "time_step_ms": 32,
+        "sensor_max_range_m": 120.0,
+        "friction": 0.9
+      }
+    },
+    {
+      "name": "delayed-range-15-gap45-seed101-stopping_envelope",
+      "case": "delayed-range-15-gap45",
+      "seed": 101,
+      "policy": "stopping_envelope",
+      "stress": false,
+      "status": "prepared",
+      "config": {
+        "name": "delayed-range-15-gap45",
+        "target_speed_mps": 15.0,
+        "hazard_reference_gap_m": 45.0,
+        "sensor_delay_s": 0.256,
+        "policy": "stopping_envelope",
+        "random_seed": 101,
+        "time_step_ms": 32,
+        "sensor_max_range_m": 120.0,
+        "friction": 0.9
+      }
+    },
+    {
+      "name": "delayed-range-15-gap45-seed202-legacy_ttc",
+      "case": "delayed-range-15-gap45",
+      "seed": 202,
+      "policy": "legacy_ttc",
+      "stress": false,
+      "status": "prepared",
+      "config": {
+        "name": "delayed-range-15-gap45",
+        "target_speed_mps": 15.0,
+        "hazard_reference_gap_m": 45.0,
+        "sensor_delay_s": 0.256,
+        "policy": "legacy_ttc",
+        "random_seed": 202,
+        "time_step_ms": 32,
+        "sensor_max_range_m": 120.0,
+        "friction": 0.9
+      }
+    },
+    {
+      "name": "delayed-range-15-gap45-seed202-stopping_envelope",
+      "case": "delayed-range-15-gap45",
+      "seed": 202,
+      "policy": "stopping_envelope",
+      "stress": false,
+      "status": "prepared",
+      "config": {
+        "name": "delayed-range-15-gap45",
+        "target_speed_mps": 15.0,
+        "hazard_reference_gap_m": 45.0,
+        "sensor_delay_s": 0.256,
+        "policy": "stopping_envelope",
+        "random_seed": 202,
+        "time_step_ms": 32,
+        "sensor_max_range_m": 120.0,
+        "friction": 0.9
+      }
+    },
+    {
+      "name": "delayed-range-15-gap45-seed303-legacy_ttc",
+      "case": "delayed-range-15-gap45",
+      "seed": 303,
+      "policy": "legacy_ttc",
+      "stress": false,
+      "status": "prepared",
+      "config": {
+        "name": "delayed-range-15-gap45",
+        "target_speed_mps": 15.0,
+        "hazard_reference_gap_m": 45.0,
+        "sensor_delay_s": 0.256,
+        "policy": "legacy_ttc",
+        "random_seed": 303,
+        "time_step_ms": 32,
+        "sensor_max_range_m": 120.0,
+        "friction": 0.9
+      }
+    },
+    {
+      "name": "delayed-range-15-gap45-seed303-stopping_envelope",
+      "case": "delayed-range-15-gap45",
+      "seed": 303,
+      "policy": "stopping_envelope",
+      "stress": false,
+      "status": "prepared",
+      "config": {
+        "name": "delayed-range-15-gap45",
+        "target_speed_mps": 15.0,
+        "hazard_reference_gap_m": 45.0,
+        "sensor_delay_s": 0.256,
+        "policy": "stopping_envelope",
+        "random_seed": 303,
+        "time_step_ms": 32,
+        "sensor_max_range_m": 120.0,
+        "friction": 0.9
+      }
+    },
+    {
+      "name": "range-dropout-15-gap45-seed101-legacy_ttc",
+      "case": "range-dropout-15-gap45",
+      "seed": 101,
+      "policy": "legacy_ttc",
+      "stress": false,
+      "status": "prepared",
+      "config": {
+        "name": "range-dropout-15-gap45",
+        "target_speed_mps": 15.0,
+        "hazard_reference_gap_m": 45.0,
+        "dropout_start_s": 0.25,
+        "dropout_end_s": 0.45,
+        "policy": "legacy_ttc",
+        "random_seed": 101,
+        "time_step_ms": 32,
+        "sensor_max_range_m": 120.0,
+        "friction": 0.9
+      }
+    },
+    {
+      "name": "range-dropout-15-gap45-seed101-stopping_envelope",
+      "case": "range-dropout-15-gap45",
+      "seed": 101,
+      "policy": "stopping_envelope",
+      "stress": false,
+      "status": "prepared",
+      "config": {
+        "name": "range-dropout-15-gap45",
+        "target_speed_mps": 15.0,
+        "hazard_reference_gap_m": 45.0,
+        "dropout_start_s": 0.25,
+        "dropout_end_s": 0.45,
+        "policy": "stopping_envelope",
+        "random_seed": 101,
+        "time_step_ms": 32,
+        "sensor_max_range_m": 120.0,
+        "friction": 0.9
+      }
+    },
+    {
+      "name": "range-dropout-15-gap45-seed202-legacy_ttc",
+      "case": "range-dropout-15-gap45",
+      "seed": 202,
+      "policy": "legacy_ttc",
+      "stress": false,
+      "status": "prepared",
+      "config": {
+        "name": "range-dropout-15-gap45",
+        "target_speed_mps": 15.0,
+        "hazard_reference_gap_m": 45.0,
+        "dropout_start_s": 0.25,
+        "dropout_end_s": 0.45,
+        "policy": "legacy_ttc",
+        "random_seed": 202,
+        "time_step_ms": 32,
+        "sensor_max_range_m": 120.0,
+        "friction": 0.9
+      }
+    },
+    {
+      "name": "range-dropout-15-gap45-seed202-stopping_envelope",
+      "case": "range-dropout-15-gap45",
+      "seed": 202,
+      "policy": "stopping_envelope",
+      "stress": false,
+      "status": "prepared",
+      "config": {
+        "name": "range-dropout-15-gap45",
+        "target_speed_mps": 15.0,
+        "hazard_reference_gap_m": 45.0,
+        "dropout_start_s": 0.25,
+        "dropout_end_s": 0.45,
+        "policy": "stopping_envelope",
+        "random_seed": 202,
+        "time_step_ms": 32,
+        "sensor_max_range_m": 120.0,
+        "friction": 0.9
+      }
+    },
+    {
+      "name": "range-dropout-15-gap45-seed303-legacy_ttc",
+      "case": "range-dropout-15-gap45",
+      "seed": 303,
+      "policy": "legacy_ttc",
+      "stress": false,
+      "status": "prepared",
+      "config": {
+        "name": "range-dropout-15-gap45",
+        "target_speed_mps": 15.0,
+        "hazard_reference_gap_m": 45.0,
+        "dropout_start_s": 0.25,
+        "dropout_end_s": 0.45,
+        "policy": "legacy_ttc",
+        "random_seed": 303,
+        "time_step_ms": 32,
+        "sensor_max_range_m": 120.0,
+        "friction": 0.9
+      }
+    },
+    {
+      "name": "range-dropout-15-gap45-seed303-stopping_envelope",
+      "case": "range-dropout-15-gap45",
+      "seed": 303,
+      "policy": "stopping_envelope",
+      "stress": false,
+      "status": "prepared",
+      "config": {
+        "name": "range-dropout-15-gap45",
+        "target_speed_mps": 15.0,
+        "hazard_reference_gap_m": 45.0,
+        "dropout_start_s": 0.25,
+        "dropout_end_s": 0.45,
+        "policy": "stopping_envelope",
+        "random_seed": 303,
+        "time_step_ms": 32,
+        "sensor_max_range_m": 120.0,
+        "friction": 0.9
+      }
+    },
+    {
+      "name": "noisy-range-15-gap45-seed101-legacy_ttc",
+      "case": "noisy-range-15-gap45",
+      "seed": 101,
+      "policy": "legacy_ttc",
+      "stress": false,
+      "status": "prepared",
+      "config": {
+        "name": "noisy-range-15-gap45",
+        "target_speed_mps": 15.0,
+        "hazard_reference_gap_m": 45.0,
+        "sensor_noise_std_m": 0.5,
+        "policy": "legacy_ttc",
+        "random_seed": 101,
+        "time_step_ms": 32,
+        "sensor_max_range_m": 120.0,
+        "friction": 0.9
+      }
+    },
+    {
+      "name": "noisy-range-15-gap45-seed101-stopping_envelope",
+      "case": "noisy-range-15-gap45",
+      "seed": 101,
+      "policy": "stopping_envelope",
+      "stress": false,
+      "status": "prepared",
+      "config": {
+        "name": "noisy-range-15-gap45",
+        "target_speed_mps": 15.0,
+        "hazard_reference_gap_m": 45.0,
+        "sensor_noise_std_m": 0.5,
+        "policy": "stopping_envelope",
+        "random_seed": 101,
+        "time_step_ms": 32,
+        "sensor_max_range_m": 120.0,
+        "friction": 0.9
+      }
+    },
+    {
+      "name": "noisy-range-15-gap45-seed202-legacy_ttc",
+      "case": "noisy-range-15-gap45",
+      "seed": 202,
+      "policy": "legacy_ttc",
+      "stress": false,
+      "status": "prepared",
+      "config": {
+        "name": "noisy-range-15-gap45",
+        "target_speed_mps": 15.0,
+        "hazard_reference_gap_m": 45.0,
+        "sensor_noise_std_m": 0.5,
+        "policy": "legacy_ttc",
+        "random_seed": 202,
+        "time_step_ms": 32,
+        "sensor_max_range_m": 120.0,
+        "friction": 0.9
+      }
+    },
+    {
+      "name": "noisy-range-15-gap45-seed202-stopping_envelope",
+      "case": "noisy-range-15-gap45",
+      "seed": 202,
+      "policy": "stopping_envelope",
+      "stress": false,
+      "status": "prepared",
+      "config": {
+        "name": "noisy-range-15-gap45",
+        "target_speed_mps": 15.0,
+        "hazard_reference_gap_m": 45.0,
+        "sensor_noise_std_m": 0.5,
+        "policy": "stopping_envelope",
+        "random_seed": 202,
+        "time_step_ms": 32,
+        "sensor_max_range_m": 120.0,
+        "friction": 0.9
+      }
+    },
+    {
+      "name": "noisy-range-15-gap45-seed303-legacy_ttc",
+      "case": "noisy-range-15-gap45",
+      "seed": 303,
+      "policy": "legacy_ttc",
+      "stress": false,
+      "status": "prepared",
+      "config": {
+        "name": "noisy-range-15-gap45",
+        "target_speed_mps": 15.0,
+        "hazard_reference_gap_m": 45.0,
+        "sensor_noise_std_m": 0.5,
+        "policy": "legacy_ttc",
+        "random_seed": 303,
+        "time_step_ms": 32,
+        "sensor_max_range_m": 120.0,
+        "friction": 0.9
+      }
+    },
+    {
+      "name": "noisy-range-15-gap45-seed303-stopping_envelope",
+      "case": "noisy-range-15-gap45",
+      "seed": 303,
+      "policy": "stopping_envelope",
+      "stress": false,
+      "status": "prepared",
+      "config": {
+        "name": "noisy-range-15-gap45",
+        "target_speed_mps": 15.0,
+        "hazard_reference_gap_m": 45.0,
+        "sensor_noise_std_m": 0.5,
+        "policy": "stopping_envelope",
+        "random_seed": 303,
+        "time_step_ms": 32,
+        "sensor_max_range_m": 120.0,
+        "friction": 0.9
+      }
+    }
+  ]
+}

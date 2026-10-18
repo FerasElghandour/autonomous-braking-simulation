@@ -1,0 +1,9 @@
+{
+  "cpu": "Apple M2 Max",
+  "logical_cpus": 12,
+  "memory_bytes": 103079215104,
+  "recorded_from": "sysctl machdep.cpu.brand_string hw.ncpu hw.memsize",
+  "execution": "local, no paid compute",
+  "tennis_device": "CPU PyTorch and Rosetta Intel simulator",
+  "webots": "official R2025b nightly_16_10_2026 mounted read-only; native vehicle physics"
+}

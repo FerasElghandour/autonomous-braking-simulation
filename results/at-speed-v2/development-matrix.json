@@ -1,0 +1,205 @@
+{
+  "name": "webots-cruise-then-hazard-v2",
+  "declared_date": "2026-10-17",
+  "source_base_commit": "80d0b38943ed502d697479142b521aaef65ad685",
+  "stage": "development",
+  "physics_seeds": [
+    97
+  ],
+  "policies": [
+    "legacy_ttc",
+    "stopping_envelope"
+  ],
+  "source_sha256": {
+    "scripts/robust_matrix.py": "f6956a665c15a0aeb2e7e25cd90c001174d5b47b34982ca8113255b4480beed2",
+    "worlds/obstacle_braking.wbt": "51f002e4e540786ab46b3745cd61f58a99f79167b23c2833a29d88add427fa94",
+    "controllers/autonomous_car/autonomous_car.py": "f09ccf3ddc3f458532f06eaabbf4e661d5db32612948f10e4611b723b71ad456",
+    "controllers/experiment_supervisor/experiment_supervisor.py": "3fcf4e7cda1e1209a88f270ff7c377222211a801edabd0349166ca76c8282720",
+    "controllers/robust_car/robust_car.py": "1d0e4a90f63c9d129afe4af2e6d078f40188bbfb9afe5deaa96c26a3f94e5611",
+    "controllers/robust_supervisor/robust_supervisor.py": "32d456f43b1fb7bf3317e4996a2c714e5d0d41cc27b70faa3de93aaea5b90f7a"
+  },
+  "acceptance": "verified cruise within 5% for 20 steps, stop below 0.1 m/s, no obstacle contact, minimum collision-hull clearance >=1 m; report stress failures too",
+  "scope": "Physical ego vehicle with scripted kinematic box targets introduced after measured cruise. Static, moving and decelerating targets; contact-friction parameter changes; software delay, dropout and Gaussian range-noise injection. Not a validated road, lead-vehicle, weather, perception or certification model. Physics seeds are repeats within this small designed family, not independent traffic scenarios.",
+  "constants": "stopping envelope: margin 2 m + speed*0.35 s + speed^2/(2*3 m/s^2); full brake; stale threshold 0.16 s. Deceleration is a design assumption, not calibrated friction truth.",
+  "geometry_source": "https://github.com/cyberbotics/webots/blob/R2025a/projects/vehicles/protos/lincoln/LincolnMKZ.proto",
+  "cases": [
+    {
+      "name": "stationary-10-gap30-seed97-legacy_ttc",
+      "case": "stationary-10-gap30",
+      "seed": 97,
+      "policy": "legacy_ttc",
+      "stress": false,
+      "status": "completed",
+      "config": {
+        "name": "stationary-10-gap30",
+        "target_speed_mps": 10.0,
+        "hazard_reference_gap_m": 30.0,
+        "policy": "legacy_ttc",
+        "random_seed": 97,
+        "time_step_ms": 32,
+        "sensor_max_range_m": 120.0,
+        "friction": 0.9
+      },
+      "exit_code": 0,
+      "summary": {
+        "config": {
+          "name": "stationary-10-gap30",
+          "target_speed_mps": 10.0,
+          "hazard_reference_gap_m": 30.0,
+          "policy": "legacy_ttc",
+          "random_seed": 97,
+          "time_step_ms": 32,
+          "sensor_max_range_m": 120.0,
+          "friction": 0.9
+        },
+        "trigger_time_s": 5.5360000000000005,
+        "end_reason": "stopped",
+        "rows": 287,
+        "pass": true,
+        "failure_reasons": [],
+        "minimum_hull_clearance_m": 9.23075059179274,
+        "minimum_reference_distance_m": 13.13943119575331,
+        "trigger_speed_mps": 9.998221174288815,
+        "peak_speed_mps": 10.01823006756372,
+        "final_speed_mps": 0.0037435797844558856,
+        "contact": false
+      },
+      "wall_seconds": 7.784178733825684
+    },
+    {
+      "name": "stationary-10-gap30-seed97-stopping_envelope",
+      "case": "stationary-10-gap30",
+      "seed": 97,
+      "policy": "stopping_envelope",
+      "stress": false,
+      "status": "completed",
+      "config": {
+        "name": "stationary-10-gap30",
+        "target_speed_mps": 10.0,
+        "hazard_reference_gap_m": 30.0,
+        "policy": "stopping_envelope",
+        "random_seed": 97,
+        "time_step_ms": 32,
+        "sensor_max_range_m": 120.0,
+        "friction": 0.9
+      },
+      "exit_code": 0,
+      "summary": {
+        "config": {
+          "name": "stationary-10-gap30",
+          "target_speed_mps": 10.0,
+          "hazard_reference_gap_m": 30.0,
+          "policy": "stopping_envelope",
+          "random_seed": 97,
+          "time_step_ms": 32,
+          "sensor_max_range_m": 120.0,
+          "friction": 0.9
+        },
+        "trigger_time_s": 5.5360000000000005,
+        "end_reason": "stopped",
+        "rows": 262,
+        "pass": true,
+        "failure_reasons": [],
+        "minimum_hull_clearance_m": 10.867697175945736,
+        "minimum_reference_distance_m": 14.778648006547627,
+        "trigger_speed_mps": 9.998221174288815,
+        "peak_speed_mps": 10.01823006756372,
+        "final_speed_mps": 0.00566269797882128,
+        "contact": false
+      },
+      "wall_seconds": 2.5919270515441895
+    },
+    {
+      "name": "stationary-15-gap45-seed97-legacy_ttc",
+      "case": "stationary-15-gap45",
+      "seed": 97,
+      "policy": "legacy_ttc",
+      "stress": false,
+      "status": "completed",
+      "config": {
+        "name": "stationary-15-gap45",
+        "target_speed_mps": 15.0,
+        "hazard_reference_gap_m": 45.0,
+        "policy": "legacy_ttc",
+        "random_seed": 97,
+        "time_step_ms": 32,
+        "sensor_max_range_m": 120.0,
+        "friction": 0.9
+      },
+      "exit_code": 0,
+      "summary": {
+        "config": {
+          "name": "stationary-15-gap45",
+          "target_speed_mps": 15.0,
+          "hazard_reference_gap_m": 45.0,
+          "policy": "legacy_ttc",
+          "random_seed": 97,
+          "time_step_ms": 32,
+          "sensor_max_range_m": 120.0,
+          "friction": 0.9
+        },
+        "trigger_time_s": 7.904,
+        "end_reason": "stopped",
+        "rows": 413,
+        "pass": true,
+        "failure_reasons": [],
+        "minimum_hull_clearance_m": 2.296011868290744,
+        "minimum_reference_distance_m": 6.204692677874235,
+        "trigger_speed_mps": 15.005393284063338,
+        "peak_speed_mps": 15.017951253983604,
+        "final_speed_mps": 0.004069250286504222,
+        "contact": false
+      },
+      "wall_seconds": 2.655654191970825
+    },
+    {
+      "name": "stationary-15-gap45-seed97-stopping_envelope",
+      "case": "stationary-15-gap45",
+      "seed": 97,
+      "policy": "stopping_envelope",
+      "stress": false,
+      "status": "completed",
+      "config": {
+        "name": "stationary-15-gap45",
+        "target_speed_mps": 15.0,
+        "hazard_reference_gap_m": 45.0,
+        "policy": "stopping_envelope",
+        "random_seed": 97,
+        "time_step_ms": 32,
+        "sensor_max_range_m": 120.0,
+        "friction": 0.9
+      },
+      "exit_code": 0,
+      "summary": {
+        "config": {
+          "name": "stationary-15-gap45",
+          "target_speed_mps": 15.0,
+          "hazard_reference_gap_m": 45.0,
+          "policy": "stopping_envelope",
+          "random_seed": 97,
+          "time_step_ms": 32,
+          "sensor_max_range_m": 120.0,
+          "friction": 0.9
+        },
+        "trigger_time_s": 7.904,
+        "end_reason": "stopped",
+        "rows": 356,
+        "pass": true,
+        "failure_reasons": [],
+        "minimum_hull_clearance_m": 15.391769140249519,
+        "minimum_reference_distance_m": 19.30269586721809,
+        "trigger_speed_mps": 15.005393284063338,
+        "peak_speed_mps": 15.017951253983604,
+        "final_speed_mps": 0.005640703124389826,
+        "contact": false
+      },
+      "wall_seconds": 2.6003668308258057
+    }
+  ],
+  "runtime": {
+    "path": "/Volumes/Webots/Webots.app/Contents/MacOS/webots",
+    "executable_sha256": "07caa7527e396c5825a0cdef2fcb3f350ddc9b6a044a4a99c4376988ce2dca50",
+    "host": "macOS-27.0.1-arm64-arm-64bit-Mach-O",
+    "declared_version": "R2025b-nightly_16_10_2026"
+  }
+}

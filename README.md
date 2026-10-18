@@ -1,59 +1,59 @@
 # Autonomous Braking Simulation
 
-**Feras Elghandour**
+Connect range sensing, risk decisions and vehicle control to independently measured stopping behavior in Webots.
 
-Connect obstacle sensing, time-to-collision decisions, vehicle control, and independent ground-truth evaluation.
+## At-speed validation
+
+**66 fresh Webots executions:** 11 designed conditions × three physics seeds × two controllers. The vehicle reaches verified cruise at 10 or 15 m/s before each scripted hazard appears. Conditions include moving and decelerating targets, lower contact friction, delayed range, dropouts, noise and short gaps.
+
+**Both controllers pass 27/33 executions and record six contacts.** A conservative stopping-envelope controller increases clearance in several conditions, including the delayed-range case, but does not improve the pass count or remove short-gap collisions. All outcomes remain visible.
+
+![Every at-speed condition, pass counts and worst collision-hull gap](results/at-speed-v2/at-speed-results.png)
+
+[Every result, protocol and limits](results/at-speed-v2/RESULTS.md) · [Recorded numerical values](results/at-speed-v2/summary.json) · [Numerical audit](results/at-speed-v2/audit.json).
 
 ## Implementation
 
-A Webots vehicle controller validates distance and speed readings, enters a persistent braking state, and records telemetry. A separate supervisor checks movement, stopping, collision status, and stopping margin against scenario thresholds.
+A common frontend validates range and speed, recognizes no-hit range and holds full brake during bounded initialization. The comparison uses the adapted legacy TTC controller and a conservative stopping-envelope policy with a stale-measurement guard. The new policy is original integration of standard stopping-distance reasoning, not a newly discovered safety method.
 
 ```mermaid
 flowchart LR
- A[Distance and speed] --> B[Bounded startup hold, then validate and compute TTC]
- B --> C[Persistent braking state]
- C --> D[Vehicle physics]
- D --> E[Independent supervisor and telemetry]
+ A[Measured range and speed] --> B[Validate and timestamp]
+ B --> C[TTC or stopping envelope]
+ C --> D[Latched braking and vehicle physics]
+ D --> E[Independent position, orientation and contact measurement]
+ E --> F[Raw telemetry and numerical audit]
 ```
 
-## Evidence and results
+The supervisor measures physical ego speed, pose, collision-hull clearance and contact directly. It also commands scripted kinematic box targets; these are not validated lead-vehicle or continuous cut-in dynamics. The policies receive no ground-truth distance, target speed or future motion. [Controller](controllers/robust_car/robust_car.py) · [Supervisor](controllers/robust_supervisor/robust_supervisor.py).
 
-**Nine fresh Webots physics cases passed, with no obstacle contact.** Minimum obstacle-front-face to vehicle-reference distance: **11.05–15.83 m**. The matrix varies requested cruise targets (5/10/15 m/s) and initial reference clearances (20/40/80 m); every run starts from rest. Actual peak speeds are reported below: the 15 m/s target was not reached.
+## Reproduce and inspect
 
-![Nine measured stopping distances and actual peak speeds](results/webots-physics-v1/stopping-distances.png)
-
-**86 tests pass.** The new physics exposed an unavailable startup speed estimate that permanently held the old controller. A bounded, fully braked initialization now requires three valid samples; later speed/range faults latch zero cruise and full brake. All nine pre-fix failures, nine corrected runs and nine same-seed repeat checks are retained. [Protocol, numerical table, raw telemetry and exact source](results/webots-physics-v1/RESULTS.md).
-
-The earlier saved run remains in [results/run.csv](results/run.csv): no contact, minimum reference distance 15.3837 m, final speed 0.0265 m/s. Its [Webots frame](results/final_screenshot.png) is historical and uses the original world.
-
-## Run locally
-
-Python 3.11 or later; use an isolated environment.
+Python 3.11 or later. Webots supplies its own controller bindings.
 
 ```sh
-python -m unittest discover -s tests -v
+python -m unittest discover -s tests -q
 python scripts/validate_results.py
 python scripts/audit_webots_physics.py
+python scripts/audit_robust_matrix.py --results results/at-speed-v2
+WEBOTS_VERSION=R2025b-nightly_16_10_2026 python scripts/robust_matrix.py \
+  --out /tmp/new-at-speed-matrix --webots /path/to/Webots.app/Contents/MacOS/webots
 ```
 
-For a new physics run, open `worlds/obstacle_braking.wbt` in Webots. On macOS 27, stable R2025a falsely reports occupied ports; these runs use the official **R2025b nightly_16_10_2026** containing [upstream fix #7032](https://github.com/cyberbotics/webots/pull/7032). The installed app was preserved. Exact download, hashes and command are in the [protocol](results/webots-physics-v1/protocol.json) and [reproduction guide](results/webots-physics-v1/RESULTS.md).
+**91 tests pass.** The new audit replays all **66 runs / 22,416 telemetry rows**, including the 32 ms supervisor command queue, target motion, collision-hull geometry and recorded verdicts. The distributed case archives contain lossless CSVs, generated worlds/configurations, summaries and logs. Exact executed source is retained separately.
 
-The world references official version-pinned R2025a assets. Controller bindings come from Webots and should not be installed from PyPI. [Architecture](docs/architecture.md) describes the control loop and evaluation boundary.
+Runs used the local M2 Max and the verified official R2025b nightly_16_10_2026, mounted read-only; the installed app was preserved. The build contains the macOS 27 port-probe [upstream fix](https://github.com/cyberbotics/webots/pull/7032). Version-pinned R2025a assets retain Cyberbotics terms. [Runtime download and hashes](results/webots-physics-v1/protocol.json).
 
-## New validation and fail-safe guard
+## Earlier evidence
 
-The tests cover startup readiness, initialization timeout, persistent fault braking, generated-world/config consistency and numerical replay checks that reject altered stopping distances, hidden contact and premature acceleration.
+The original world, `worlds/obstacle_braking.wbt`, remains a static-obstacle example. Its separate [nine-case physics matrix](results/webots-physics-v1/RESULTS.md) starts from rest and reports vehicle-reference distances. The new at-speed family uses signed collision-hull clearance; these measures and protocols must not be combined. The [historical Webots frame](results/final_screenshot.png) and [1,836-run ideal kinematic stress study](results/stress-v1/RESULTS.md) remain separately labeled.
 
-A separate **1,836-run kinematic stress comparison** covers speed, clearance, moving obstacles, noise, bias, dropouts, delay and friction. It exposes collisions and inconsistent performance against a fixed-distance baseline. [All results and model limits](results/stress-v1/RESULTS.md).
+## Scope
 
-The kinematic stress results use their recorded earlier controller version and are separate from the new Webots physics evidence.
+This is a controlled simulator study with a physical ego model, scripted targets, software sensor faults and friction parameters. Most deterministic cases repeat identically across the three physics seeds. No collision-free operating range, calibrated weather model, real-vehicle safety or certification is established. The documented short-gap failures are a substantive limit.
 
-## Scope and limitations
-
-One straight road, static obstacle and deterministic physics seed. Reference distance is not bumper clearance. Short-gap runs brake before reaching their requested cruise target. No physical vehicle, moving-obstacle physics, weather robustness or broader safety claim is established. The fixed simulator build is an official prerelease; the vehicle assets are external dependencies.
-
-[Validation record](VALIDATION.md) · [Inputs and applicable notices](DATA.md)
+[Validation record](VALIDATION.md) · [Inputs and preserved notices](DATA.md) · [Architecture](docs/architecture.md).
 
 ## Reuse
 
-The original contributions listed in [LICENSING.md](LICENSING.md) are available under [MIT](LICENSE). This scoped grant preserves upstream notices and separate dataset, simulator, notebook and checkpoint terms.
+Eligible original code is available under the scoped [MIT grant](LICENSING.md). Existing Cyberbotics, dataset, simulator and other upstream terms remain in place.

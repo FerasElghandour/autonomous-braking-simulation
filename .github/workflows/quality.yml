@@ -17,6 +17,7 @@ jobs:
           python -m unittest discover -s tests -q
           python scripts/validate_results.py
           python scripts/audit_webots_physics.py
+          python scripts/audit_robust_matrix.py --results results/at-speed-v2
         env:
           OMP_NUM_THREADS: '2'
           OPENBLAS_NUM_THREADS: '2'

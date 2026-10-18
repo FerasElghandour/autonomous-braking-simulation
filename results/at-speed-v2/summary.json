@@ -1,0 +1,290 @@
+{
+  "runs": 66,
+  "conditions": 11,
+  "physics_seeds": [
+    101,
+    202,
+    303
+  ],
+  "policies": {
+    "legacy_ttc": {
+      "pass": 27,
+      "runs": 33,
+      "contacts": 6,
+      "conditions": [
+        {
+          "case": "stationary-10-gap30",
+          "pass": 3,
+          "runs": 3,
+          "contacts": 0,
+          "minimum_hull_clearance_m": 9.23075059179274,
+          "all_hull_clearances_m": [
+            9.23075059179274,
+            9.23075059179274,
+            9.23075059179274
+          ]
+        },
+        {
+          "case": "stationary-15-gap45",
+          "pass": 3,
+          "runs": 3,
+          "contacts": 0,
+          "minimum_hull_clearance_m": 2.296011868290744,
+          "all_hull_clearances_m": [
+            2.296011868290744,
+            2.296011868290744,
+            2.296011868290744
+          ]
+        },
+        {
+          "case": "low-friction-15-gap45",
+          "pass": 3,
+          "runs": 3,
+          "contacts": 0,
+          "minimum_hull_clearance_m": 2.2173813430901843,
+          "all_hull_clearances_m": [
+            2.2173813430901843,
+            2.2173813430901843,
+            2.2173813430901843
+          ]
+        },
+        {
+          "case": "short-gap-15-gap18",
+          "pass": 0,
+          "runs": 3,
+          "contacts": 3,
+          "minimum_hull_clearance_m": -0.15255729941246132,
+          "all_hull_clearances_m": [
+            -0.15255729941246132,
+            -0.15255729941246132,
+            -0.15255729941246132
+          ]
+        },
+        {
+          "case": "stress-15-gap9-low-friction",
+          "pass": 0,
+          "runs": 3,
+          "contacts": 3,
+          "minimum_hull_clearance_m": -0.437386102927396,
+          "all_hull_clearances_m": [
+            -0.437386102927396,
+            -0.437386102927396,
+            -0.437386102927396
+          ]
+        },
+        {
+          "case": "moving-lead-15-gap30",
+          "pass": 3,
+          "runs": 3,
+          "contacts": 0,
+          "minimum_hull_clearance_m": 17.53268840766673,
+          "all_hull_clearances_m": [
+            17.53268840766673,
+            17.53268840766673,
+            17.53268840766673
+          ]
+        },
+        {
+          "case": "braking-lead-15-gap30",
+          "pass": 3,
+          "runs": 3,
+          "contacts": 0,
+          "minimum_hull_clearance_m": 18.302973528695414,
+          "all_hull_clearances_m": [
+            18.302973528695414,
+            18.302973528695414,
+            18.302973528695414
+          ]
+        },
+        {
+          "case": "sudden-appearance-10-gap22",
+          "pass": 3,
+          "runs": 3,
+          "contacts": 0,
+          "minimum_hull_clearance_m": 2.3297900282221833,
+          "all_hull_clearances_m": [
+            2.3297900282221833,
+            2.3297900282221833,
+            2.3297900282221833
+          ]
+        },
+        {
+          "case": "delayed-range-15-gap45",
+          "pass": 3,
+          "runs": 3,
+          "contacts": 0,
+          "minimum_hull_clearance_m": 1.576795495896227,
+          "all_hull_clearances_m": [
+            1.576795495896227,
+            1.576795495896227,
+            1.576795495896227
+          ]
+        },
+        {
+          "case": "range-dropout-15-gap45",
+          "pass": 3,
+          "runs": 3,
+          "contacts": 0,
+          "minimum_hull_clearance_m": 18.35353725498568,
+          "all_hull_clearances_m": [
+            18.35353725498568,
+            18.35353725498568,
+            18.35353725498568
+          ]
+        },
+        {
+          "case": "noisy-range-15-gap45",
+          "pass": 3,
+          "runs": 3,
+          "contacts": 0,
+          "minimum_hull_clearance_m": 2.70750806841692,
+          "all_hull_clearances_m": [
+            2.826789162694652,
+            2.70750806841692,
+            3.0123608377065225
+          ]
+        }
+      ]
+    },
+    "stopping_envelope": {
+      "pass": 27,
+      "runs": 33,
+      "contacts": 6,
+      "conditions": [
+        {
+          "case": "stationary-10-gap30",
+          "pass": 3,
+          "runs": 3,
+          "contacts": 0,
+          "minimum_hull_clearance_m": 10.867697175945736,
+          "all_hull_clearances_m": [
+            10.867697175945736,
+            10.867697175945736,
+            10.867697175945736
+          ]
+        },
+        {
+          "case": "stationary-15-gap45",
+          "pass": 3,
+          "runs": 3,
+          "contacts": 0,
+          "minimum_hull_clearance_m": 15.391769140249519,
+          "all_hull_clearances_m": [
+            15.391769140249519,
+            15.391769140249519,
+            15.391769140249519
+          ]
+        },
+        {
+          "case": "low-friction-15-gap45",
+          "pass": 3,
+          "runs": 3,
+          "contacts": 0,
+          "minimum_hull_clearance_m": 2.8436980278720316,
+          "all_hull_clearances_m": [
+            2.8436980278720316,
+            2.8436980278720316,
+            2.8436980278720316
+          ]
+        },
+        {
+          "case": "short-gap-15-gap18",
+          "pass": 0,
+          "runs": 3,
+          "contacts": 3,
+          "minimum_hull_clearance_m": -0.15255729941246132,
+          "all_hull_clearances_m": [
+            -0.15255729941246132,
+            -0.15255729941246132,
+            -0.15255729941246132
+          ]
+        },
+        {
+          "case": "stress-15-gap9-low-friction",
+          "pass": 0,
+          "runs": 3,
+          "contacts": 3,
+          "minimum_hull_clearance_m": -0.437386102927396,
+          "all_hull_clearances_m": [
+            -0.437386102927396,
+            -0.437386102927396,
+            -0.437386102927396
+          ]
+        },
+        {
+          "case": "moving-lead-15-gap30",
+          "pass": 3,
+          "runs": 3,
+          "contacts": 0,
+          "minimum_hull_clearance_m": 21.311150308023112,
+          "all_hull_clearances_m": [
+            21.311150308023112,
+            21.311150308023112,
+            21.311150308023112
+          ]
+        },
+        {
+          "case": "braking-lead-15-gap30",
+          "pass": 3,
+          "runs": 3,
+          "contacts": 0,
+          "minimum_hull_clearance_m": 24.836821017672975,
+          "all_hull_clearances_m": [
+            24.836821017672975,
+            24.836821017672975,
+            24.836821017672975
+          ]
+        },
+        {
+          "case": "sudden-appearance-10-gap22",
+          "pass": 3,
+          "runs": 3,
+          "contacts": 0,
+          "minimum_hull_clearance_m": 8.947575570605729,
+          "all_hull_clearances_m": [
+            8.947575570605729,
+            8.947575570605729,
+            8.947575570605729
+          ]
+        },
+        {
+          "case": "delayed-range-15-gap45",
+          "pass": 3,
+          "runs": 3,
+          "contacts": 0,
+          "minimum_hull_clearance_m": 20.671663513152676,
+          "all_hull_clearances_m": [
+            20.671663513152676,
+            20.671663513152676,
+            20.671663513152676
+          ]
+        },
+        {
+          "case": "range-dropout-15-gap45",
+          "pass": 3,
+          "runs": 3,
+          "contacts": 0,
+          "minimum_hull_clearance_m": 17.31173073702974,
+          "all_hull_clearances_m": [
+            17.31173073702974,
+            17.31173073702974,
+            17.31173073702974
+          ]
+        },
+        {
+          "case": "noisy-range-15-gap45",
+          "pass": 3,
+          "runs": 3,
+          "contacts": 0,
+          "minimum_hull_clearance_m": 15.871759540882124,
+          "all_hull_clearances_m": [
+            16.35174994072185,
+            15.871759540882124,
+            15.871759540882124
+          ]
+        }
+      ]
+    }
+  },
+  "scope": "Physical ego vehicle with scripted kinematic box targets introduced after measured cruise. Static, moving and decelerating targets; contact-friction parameter changes; software delay, dropout and Gaussian range-noise injection. Not a validated road, lead-vehicle, weather, perception or certification model. Physics seeds are repeats within this small designed family, not independent traffic scenarios."
+}

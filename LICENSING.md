@@ -10,6 +10,12 @@ The root [MIT license](LICENSE) applies to Feras Elghandour's original contribut
 - `tests/test_stress_validation.py`
 - `tests/test_webots_matrix.py`
 - `tests/test_webots_physics_audit.py`
+- `scripts/robust_matrix.py`
+- `scripts/plot_robust_results.py`
+- `scripts/audit_robust_matrix.py`
+- `tests/test_robust_oracles.py`
+- `controllers/robust_car/robust_car.py` (original integration and envelope logic only)
+- `controllers/robust_supervisor/robust_supervisor.py` (original measurement logic only; Cyberbotics geometry constants retain upstream terms)
 
 Original reproduction runner, protocol and benchmark documentation authored for the current public tooling; legacy source ownership was not inferred from repository ownership.
 
